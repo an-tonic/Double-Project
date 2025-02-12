@@ -453,6 +453,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1881671850}
     m_Modifications:
+    - target: {fileID: -8489158088486871398, guid: 74fca3f7d4a9d784f8fa763b45d3b3ee, type: 3}
+      propertyPath: m_Name
+      value: mixamorig:RightHandRingDistal
+      objectReference: {fileID: 0}
+    - target: {fileID: -7868376761522275453, guid: 74fca3f7d4a9d784f8fa763b45d3b3ee, type: 3}
+      propertyPath: m_Name
+      value: mixamorig:RightHandMiddleProximal
+      objectReference: {fileID: 0}
+    - target: {fileID: -5000012510073098466, guid: 74fca3f7d4a9d784f8fa763b45d3b3ee, type: 3}
+      propertyPath: m_Name
+      value: mixamorig:RightHandPinkyIntermediate
+      objectReference: {fileID: 0}
+    - target: {fileID: -4814223395346525031, guid: 74fca3f7d4a9d784f8fa763b45d3b3ee, type: 3}
+      propertyPath: m_Name
+      value: mixamorig:RightHandIndexTip
+      objectReference: {fileID: 0}
+    - target: {fileID: -4684577375496939933, guid: 74fca3f7d4a9d784f8fa763b45d3b3ee, type: 3}
+      propertyPath: m_Name
+      value: mixamorig:RightHandPinkyDistal
+      objectReference: {fileID: 0}
+    - target: {fileID: -4511495502947280212, guid: 74fca3f7d4a9d784f8fa763b45d3b3ee, type: 3}
+      propertyPath: m_Name
+      value: mixamorig:RightHandThumbProximal
+      objectReference: {fileID: 0}
     - target: {fileID: -3910990755373119420, guid: 74fca3f7d4a9d784f8fa763b45d3b3ee, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -505,10 +529,42 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -458753306286484103, guid: 74fca3f7d4a9d784f8fa763b45d3b3ee, type: 3}
+      propertyPath: m_Name
+      value: mixamorig:RightHandMiddleTip
+      objectReference: {fileID: 0}
+    - target: {fileID: -360690708450774278, guid: 74fca3f7d4a9d784f8fa763b45d3b3ee, type: 3}
+      propertyPath: m_Name
+      value: mixamorig:RightHandPinkyProximal
+      objectReference: {fileID: 0}
+    - target: {fileID: 816219501513562738, guid: 74fca3f7d4a9d784f8fa763b45d3b3ee, type: 3}
+      propertyPath: m_Name
+      value: mixamorig:RightHandMiddleIntermediate
+      objectReference: {fileID: 0}
+    - target: {fileID: 918874161090129751, guid: 74fca3f7d4a9d784f8fa763b45d3b3ee, type: 3}
+      propertyPath: m_Name
+      value: mixamorig:RightHandIndexDistal
+      objectReference: {fileID: 0}
+    - target: {fileID: 2231798865246016866, guid: 74fca3f7d4a9d784f8fa763b45d3b3ee, type: 3}
+      propertyPath: m_Name
+      value: mixamorig:RightHandThumbDistal
+      objectReference: {fileID: 0}
+    - target: {fileID: 2486236845035275981, guid: 74fca3f7d4a9d784f8fa763b45d3b3ee, type: 3}
+      propertyPath: m_Name
+      value: mixamorig:RightHandIndexProximal
+      objectReference: {fileID: 0}
+    - target: {fileID: 2552790238772485183, guid: 74fca3f7d4a9d784f8fa763b45d3b3ee, type: 3}
+      propertyPath: m_Name
+      value: mixamorig:RightHandThumbMetacarpal
+      objectReference: {fileID: 0}
     - target: {fileID: 2619535907168169948, guid: 74fca3f7d4a9d784f8fa763b45d3b3ee, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2d8c36ba5e2d8074bbee95b9933528d2, type: 2}
+    - target: {fileID: 2748137388735938847, guid: 74fca3f7d4a9d784f8fa763b45d3b3ee, type: 3}
+      propertyPath: m_Name
+      value: mixamorig:RightHandIndexIntermediate
+      objectReference: {fileID: 0}
     - target: {fileID: 2895422971990724085, guid: 74fca3f7d4a9d784f8fa763b45d3b3ee, type: 3}
       propertyPath: m_Name
       value: Cloak
@@ -516,6 +572,30 @@ PrefabInstance:
     - target: {fileID: 2895422971990724085, guid: 74fca3f7d4a9d784f8fa763b45d3b3ee, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3506519610964708609, guid: 74fca3f7d4a9d784f8fa763b45d3b3ee, type: 3}
+      propertyPath: m_Name
+      value: mixamorig:RightHandMiddleDistal
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373761212020642500, guid: 74fca3f7d4a9d784f8fa763b45d3b3ee, type: 3}
+      propertyPath: m_Name
+      value: mixamorig:RightHandThumbTip
+      objectReference: {fileID: 0}
+    - target: {fileID: 4429245567439015936, guid: 74fca3f7d4a9d784f8fa763b45d3b3ee, type: 3}
+      propertyPath: m_Name
+      value: mixamorig:RightHandRingProximal
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832452248025036222, guid: 74fca3f7d4a9d784f8fa763b45d3b3ee, type: 3}
+      propertyPath: m_Name
+      value: mixamorig:RightHandRingIntermediate
+      objectReference: {fileID: 0}
+    - target: {fileID: 6425818326756093114, guid: 74fca3f7d4a9d784f8fa763b45d3b3ee, type: 3}
+      propertyPath: m_Name
+      value: mixamorig:RightHandRingTip
+      objectReference: {fileID: 0}
+    - target: {fileID: 8305164136009754973, guid: 74fca3f7d4a9d784f8fa763b45d3b3ee, type: 3}
+      propertyPath: m_Name
+      value: mixamorig:RightHandPinkyTip
       objectReference: {fileID: 0}
     - target: {fileID: 8771091787928289351, guid: 74fca3f7d4a9d784f8fa763b45d3b3ee, type: 3}
       propertyPath: m_Name
@@ -590,6 +670,52 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1881671850}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &401859406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 401859408}
+  - component: {fileID: 401859407}
+  m_Layer: 0
+  m_Name: Test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &401859407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401859406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f471e00e12e25bc4cbab70e434e82d0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handTransform: {fileID: 536680074}
+  signName: 
+--- !u!4 &401859408
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401859406}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.157001, y: 1.224799, z: 0.52519494}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &410812430
 GameObject:
@@ -726,6 +852,11 @@ Transform:
   - {fileID: 99852526}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &536680074 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2468282021181825328, guid: 3f7511fbc40ae7a4b89c3298a3de199d, type: 3}
+  m_PrefabInstance: {fileID: 744937994}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &577188040
 GameObject:
   m_ObjectHideFlags: 0
@@ -2155,3 +2286,4 @@ SceneRoots:
   - {fileID: 436488012}
   - {fileID: 1559552306}
   - {fileID: 1114040582}
+  - {fileID: 401859408}
