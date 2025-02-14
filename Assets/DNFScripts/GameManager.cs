@@ -8,13 +8,13 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance; // Singleton instance
 
-    private int playerHealth = 100; // Player's health
-    private int playerMana = 100;     // Player's mana
-    private float nextHealthDecreaseTime = 0f;
+    //private int playerHealth = 100; // Player's health
+    //private int playerMana = 100;     // Player's mana
+    //private float nextHealthDecreaseTime = 0f;
 
     public AudioManager audioManager;
-    public int healthDecreaseRate = 1;
-    public float healthDecreaseInterval = 1f;
+    //public int healthDecreaseRate = 1;
+    //public float healthDecreaseInterval = 1f;
     
 
 

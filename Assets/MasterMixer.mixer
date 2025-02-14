@@ -53,7 +53,7 @@ AudioMixerController:
   - guid: e755cc78957857d469ed0dad33b21f8f
     name: PitchShift
   - guid: cd3eb321caf54db44a6e0990581db7f0
-    name: MyExposedParam 2
+    name: ResonanceShift
   m_AudioMixerGroupViews:
   - guids:
     - eb40f377d3fe94040b1332ce1ae39ad3

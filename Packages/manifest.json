@@ -4,6 +4,7 @@
     "com.meta.xr.sdk.audio": "68.0.0",
     "com.unity.collab-proxy": "2.4.4",
     "com.unity.feature.development": "1.0.1",
+    "com.unity.mobile.android-logcat": "1.4.4",
     "com.unity.nuget.newtonsoft-json": "3.2.1",
     "com.unity.postprocessing": "3.4.0",
     "com.unity.shadergraph": "14.0.11",

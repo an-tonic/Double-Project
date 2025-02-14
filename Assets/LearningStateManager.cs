@@ -1,29 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
 
 public class LearningStateManager : MonoBehaviour
 {
-    private List<char> learningStates = new List<char> { 'G', 'F' };
+    private List<string> learningStates = new List<string> { "G", "F" };
     private int currentStateIndex = 0;
     public HandDataLoader handDataLoader;
 
     // Current state property
-    public char CurrentState { get; private set; }
+    public string CurrentState { get; private set; }
 
     // Start is called before the first frame update
     void Start()
     {
         
         CurrentState = learningStates[currentStateIndex];
-        handDataLoader.LoadHandData(CurrentState);
-
         Debug.Log("Starting learning state: " + CurrentState);
+        handDataLoader.LoadHandData(CurrentState);
+        
     }
 
-    // Method to change state
-    public void ChangeState(char nextState)
+  
+
+    public void ChangeState(string nextState)
     {
         // Check if the requested state is the current state + 1 in sequence
         if (learningStates.Contains(nextState))
@@ -35,6 +35,7 @@ public class LearningStateManager : MonoBehaviour
                 currentStateIndex = nextIndex;
                 CurrentState = learningStates[currentStateIndex];
                 Debug.Log("Changed to learning state: " + CurrentState);
+                handDataLoader.LoadHandData(CurrentState);
             }
             else
             {
@@ -46,4 +47,5 @@ public class LearningStateManager : MonoBehaviour
             Debug.LogWarning("Invalid state: " + nextState);
         }
     }
+
 }
