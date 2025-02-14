@@ -33,6 +33,10 @@ public class HandDataRecorder : MonoBehaviour
     {
         foreach (Transform joint in parent)
         {
+            if(joint.name.Contains("Velocity"))
+            {
+                continue;
+            }
             Vector3 position = joint.localPosition;
             Quaternion rotation = joint.localRotation;
             

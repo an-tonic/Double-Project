@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
+
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 
@@ -12,10 +12,10 @@ public class GameManager : MonoBehaviour
     private int playerMana = 100;     // Player's mana
     private float nextHealthDecreaseTime = 0f;
 
-    public PostProcessingManager postProcessingManager;
     public AudioManager audioManager;
     public int healthDecreaseRate = 1;
     public float healthDecreaseInterval = 1f;
+    
 
 
     private void Awake()
@@ -38,35 +38,29 @@ public class GameManager : MonoBehaviour
     {
 
         DecreaseHealth();
-        UpdatePostProcessing();
+        
         UpdateAudio();
+        
     }
 
     private void UpdateAudio()
     {
+
         if (audioManager != null)
         {
-            audioManager.UpdateAudio(PlayerIllumination.IsIlluminated);
+            //audioManager.UpdateAudio(playerIllumination.IsIlluminated);
 
         }
     }
 
     private void DecreaseHealth()
     {
-        if (!PlayerIllumination.IsIlluminated && Time.time >= nextHealthDecreaseTime)
-        {
-            playerHealth -= healthDecreaseRate;
-            nextHealthDecreaseTime = Time.time + healthDecreaseInterval; // Set the next decrease time
-        }
+        //if (!playerIllumination.IsIlluminated && Time.time >= nextHealthDecreaseTime)
+        //{
+        //    playerHealth -= healthDecreaseRate;
+        //    nextHealthDecreaseTime = Time.time + healthDecreaseInterval; 
+        //}
 
-    }
-
-    private void UpdatePostProcessing()
-    {
-        if (postProcessingManager != null)
-        {
-            postProcessingManager.UpdateSaturation(PlayerIllumination.IsIlluminated);
-        }
     }
 
 }

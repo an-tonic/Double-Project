@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 using System.IO;
 using UnityEditor;
 using UnityEngine;
@@ -7,17 +8,17 @@ using UnityEngine;
 
 public class HandDataLoader : MonoBehaviour
 {
-    public GameObject wrist;
+    public Transform wrist;
     public char signName;
     private Dictionary<string, HandJointData> jointData;
-
+    public float rotationAngle = -60.0f;
 
     void Start()
     {
         jointData = new Dictionary<string, HandJointData>();
     }
 
-    public void LoadHandData(char letter)
+    public void LoadHandData(char letter = ' ')
     {
 
         if (signName == null)
@@ -25,7 +26,7 @@ public class HandDataLoader : MonoBehaviour
             Debug.Log("Letter/sign not provided");
             return;
         }
-        if (letter == null)
+        if (letter == ' ')
         {
             letter = signName;
         }
@@ -52,23 +53,29 @@ public class HandDataLoader : MonoBehaviour
 
             Vector3 position = ParseVector3(posString);
             Quaternion rotation = ParseQuaternion(rotString);
-            
+
             jointData[jointName] = new HandJointData { position = position, rotation = rotation };
 
         }
-        
-        ApplyHandData(wrist.transform);
+
+        ApplyHandData(wrist);
     }
 
     private void ApplyHandData(Transform joint)
     {
-        
+
         if (jointData.ContainsKey(joint.name.ToLower()))
         {
-            
+
             joint.localPosition = jointData[joint.name.ToLower()].position;
             joint.localRotation = jointData[joint.name.ToLower()].rotation;
 
+
+            if (joint.name.Contains("Metacarpal") || joint.name.Contains("Palm"))
+            {
+
+                joint.RotateAround(wrist.position, wrist.right, rotationAngle);
+            }
         }
 
         foreach (Transform child in joint)
@@ -115,7 +122,7 @@ public class HandDataLoaderEditor : Editor
         HandDataLoader recorder = (HandDataLoader)target;
         if (GUILayout.Button("Load Hand Data"))
         {
-            recorder.LoadHandData('L');
+            recorder.LoadHandData();
         }
     }
 }

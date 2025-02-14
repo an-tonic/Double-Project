@@ -1,27 +1,32 @@
-using UnityEngine;
 
+
+using UnityEngine;
 
 public class PlayerIllumination : MonoBehaviour
 {
-    public static bool IsIlluminated = false; // Static variable, globally accessible
+
+    public GameObject postProcessingManager;
+    public GameObject audioManager;
 
 
     private void OnTriggerEnter(Collider other)
     {
-
+        
         if (other.CompareTag("LightVolume"))
         {
-
-            IsIlluminated = true;
+            postProcessingManager.SetActive(false);
+            audioManager.SetActive(false);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
+        
         if (other.CompareTag("LightVolume"))
         {
-            IsIlluminated = false;
+            
+            postProcessingManager.SetActive(true);
+            audioManager.SetActive(true);
         }
     }
 }
-

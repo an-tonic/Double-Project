@@ -1,12 +1,44 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!244 &-4594108711656489649
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: b8905aa7974d7f643baeef5520e77921
+  m_EffectName: Lowpass
+  m_MixLevel: 26cc669ab21e23449a500e5d28b40bf6
+  m_Parameters:
+  - m_ParameterName: Cutoff freq
+    m_GUID: 537639425f6bb1042a59350c1c8b6311
+  - m_ParameterName: Resonance
+    m_GUID: cd3eb321caf54db44a6e0990581db7f0
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!244 &-1027064606697029742
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 2c8245969da582b4cbb65dcd38839897
+  m_EffectName: Attenuation
+  m_MixLevel: 7039996b7fc49fd4ea99b3e39d23d150
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!241 &24100000
 AudioMixerController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: NewAudioMixer
+  m_Name: MasterMixer
   m_OutputGroup: {fileID: 0}
   m_MasterGroup: {fileID: 24300002}
   m_Snapshots:
@@ -15,10 +47,17 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: 4f675b0a7dcd0684a998912542a57fa2
+    name: VolumeShift
+  - guid: e755cc78957857d469ed0dad33b21f8f
+    name: PitchShift
+  - guid: cd3eb321caf54db44a6e0990581db7f0
+    name: MyExposedParam 2
   m_AudioMixerGroupViews:
   - guids:
     - eb40f377d3fe94040b1332ce1ae39ad3
+    - cdb9f6109cfd3064ba2057e57ecd6976
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -31,7 +70,8 @@ AudioMixerGroupController:
   m_Name: Master
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: eb40f377d3fe94040b1332ce1ae39ad3
-  m_Children: []
+  m_Children:
+  - {fileID: 5311145425211053939}
   m_Volume: cc779bb27c75adb498f3993c9ffd8f50
   m_Pitch: f53e9bd6514507a47896450cadbc93c3
   m_Send: 00000000000000000000000000000000
@@ -90,3 +130,23 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!243 &5311145425211053939
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Dying Sound Filter
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: cdb9f6109cfd3064ba2057e57ecd6976
+  m_Children: []
+  m_Volume: 4f675b0a7dcd0684a998912542a57fa2
+  m_Pitch: e755cc78957857d469ed0dad33b21f8f
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -1027064606697029742}
+  - {fileID: -4594108711656489649}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
