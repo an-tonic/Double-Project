@@ -4,40 +4,31 @@ using UnityEngine.Networking;
 using System.Collections;
 
 
+
 public class HandDataLoader : MonoBehaviour
 {
-    public Transform wrist;
+    
+    
+    private Dictionary<string, Quaternion> jointRotation;
+    
+
     public string signName;
-    private Dictionary<string, HandJointData> jointData;
     public float rotationAngle = -60.0f;
 
     void Start()
     {
-        jointData = new Dictionary<string, HandJointData>();
+        jointRotation = new Dictionary<string, Quaternion>();
     }
 
-    public void LoadHandData(string letter = " ")
-    {
-        if (signName == null)
-        {
-            Debug.Log("Letter/sign not provided");
-            return;
-        }
-
-        if (letter == " ")
-        {
-            letter = signName;
-        }
-
-        // Build the local file path using StreamingAssets
+    public void LoadHandData(Transform wrist, string letter)
+    {   
         string filePath = System.IO.Path.Combine(Application.streamingAssetsPath, "Shape Data", letter.ToString().ToUpper() + ".txt");
-
-        // Start the web request to fetch the hand data
-        StartCoroutine(DownloadHandData(filePath));
+        
+        StartCoroutine(DownloadHandData(filePath, wrist));
     }
 
-    // Coroutine to download the data asynchronously from the local file system
-    private IEnumerator DownloadHandData(string filePath)
+
+    private IEnumerator DownloadHandData(string filePath, Transform wrist)
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Get(filePath))
         {
@@ -58,28 +49,28 @@ public class HandDataLoader : MonoBehaviour
                 if (line.Trim().Length == 0) { continue; }
 
                 // Parse the data line, e.g., "R_IndexProximal: Pos(-0.003732, 0.002189, 0.059548) Rot(0.151882, -0.07698268, 0.0411778, 0.9845354)"
-                string jointName = line.Split(':')[0].Trim().ToLower();
-                string posString = line.Split("Pos(")[1].Split(')')[0];
+                string jointName = line.Split(':')[0].Split('_')[1].Trim().ToLower();
                 string rotString = line.Split("Rot(")[1].Split(')')[0];
 
-                Vector3 position = ParseVector3(posString);
+                
                 Quaternion rotation = ParseQuaternion(rotString);
 
-                jointData[jointName] = new HandJointData { position = position, rotation = rotation };
+                jointRotation[jointName] = rotation;
             }
 
-            ApplyHandData(wrist);
+            ApplyHandData(wrist, wrist);
         }
     }
 
-    private void ApplyHandData(Transform joint)
+    private void ApplyHandData(Transform joint, Transform wrist)
     {
-        if (jointData.ContainsKey(joint.name.ToLower()))
+        string jointName = joint.name.Split('_')[1].ToLower();
+        
+        if (jointRotation.ContainsKey(jointName))
         {
-            joint.localPosition = jointData[joint.name.ToLower()].position;
-            joint.localRotation = jointData[joint.name.ToLower()].rotation;
+            joint.localRotation = jointRotation[jointName];
 
-            if (joint.name.Contains("Metacarpal") || joint.name.Contains("Palm"))
+            if (jointName.Contains("metacarpal") || jointName.Contains("palm"))
             {
                 joint.RotateAround(wrist.position, wrist.right, rotationAngle);
             }
@@ -87,18 +78,8 @@ public class HandDataLoader : MonoBehaviour
 
         foreach (Transform child in joint)
         {
-            // Recursive update for each joint
-            ApplyHandData(child);
+            ApplyHandData(child, wrist);
         }
-    }
-
-    private Vector3 ParseVector3(string vectorString)
-    {
-        string[] values = vectorString.Split(',');
-        float x = float.Parse(values[0]);
-        float y = float.Parse(values[1]);
-        float z = float.Parse(values[2]);
-        return new Vector3(x, y, z);
     }
 
     private Quaternion ParseQuaternion(string quatString)
@@ -110,10 +91,4 @@ public class HandDataLoader : MonoBehaviour
         float w = float.Parse(values[3]);
         return new Quaternion(x, y, z, w);
     }
-}
-
-public class HandJointData
-{
-    public Vector3 position;
-    public Quaternion rotation;
 }

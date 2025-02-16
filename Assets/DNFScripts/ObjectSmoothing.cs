@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ObjectSmoothing : MonoBehaviour
 {
-    public Transform handTransform; 
+    public Transform handTransform = null; 
     public Transform teleportationLine;
     public float smoothingFactor = 0.1f; 
     public float offsetAmount = 0.5f;
@@ -13,14 +13,10 @@ public class ObjectSmoothing : MonoBehaviour
     private Vector3 smoothedEndPoint;
 
 
-    void OnEnable()
-    {
-        teleportationLine.position = handTransform.position + handTransform.up * -offsetAmount + handTransform.forward * offsetAmount;
-        teleportationLine.rotation = handTransform.rotation * Quaternion.Euler(90, 0, 0);
-    }
-
     void Update()
     {
+        if (handTransform == null) return;
+
         teleportationLine.position = handTransform.position + handTransform.up * -offsetAmount + handTransform.forward * offsetAmount;
 
         Quaternion targetRotation = handTransform.rotation * Quaternion.Euler(90, 0, 0);

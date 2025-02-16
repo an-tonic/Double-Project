@@ -22,6 +22,9 @@ namespace UnityEngine.XR.Hands.Samples.GestureSample
         Transform m_TargetTransform;
 
         [SerializeField]
+        SpellBuilder spellBuilder;
+
+        [SerializeField]
         [Tooltip("The event fired when the gesture is performed.")]
         UnityEvent m_GesturePerformed;
 
@@ -43,6 +46,8 @@ namespace UnityEngine.XR.Hands.Samples.GestureSample
         bool m_PerformedTriggered;
         float m_TimeOfLastConditionCheck;
         float m_HoldStartTime;
+
+        
 
         /// <summary>
         /// The hand tracking events component to subscribe to receive updated joint data to be used for gesture detection.
@@ -147,6 +152,9 @@ namespace UnityEngine.XR.Hands.Samples.GestureSample
                 if (holdTimer > m_MinimumHoldTime)
                 {
                     m_GesturePerformed?.Invoke();
+                    string name = m_HandShape.name;
+
+                    spellBuilder.OnGestureRecognized(name, m_HandTrackingEvents.handedness.ToString());
                     m_PerformedTriggered = true;
 
                 }

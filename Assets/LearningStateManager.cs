@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 public class LearningStateManager : MonoBehaviour
 {
     private List<string> learningStates = new List<string> { "G", "F" };
     private int currentStateIndex = 0;
+
     public HandDataLoader handDataLoader;
+    public Transform leftHand;
+    public Transform rightHand;
 
     // Current state property
     public string CurrentState { get; private set; }
@@ -16,12 +20,16 @@ public class LearningStateManager : MonoBehaviour
     {
         
         CurrentState = learningStates[currentStateIndex];
-        Debug.Log("Starting learning state: " + CurrentState);
-        handDataLoader.LoadHandData(CurrentState);
         
+        handDataLoader.LoadHandData(rightHand, "F");
+        
+
+        handDataLoader.LoadHandData(leftHand, "G");
+        
+
     }
 
-  
+
 
     public void ChangeState(string nextState)
     {
@@ -35,7 +43,7 @@ public class LearningStateManager : MonoBehaviour
                 currentStateIndex = nextIndex;
                 CurrentState = learningStates[currentStateIndex];
                 Debug.Log("Changed to learning state: " + CurrentState);
-                handDataLoader.LoadHandData(CurrentState);
+                //handDataLoader.LoadHandData(CurrentState);
             }
             else
             {
