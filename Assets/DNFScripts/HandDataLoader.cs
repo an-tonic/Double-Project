@@ -1,84 +1,95 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using System.Collections;
-
-
+using System.IO;
 
 public class HandDataLoader : MonoBehaviour
 {
-    
-    
-    private Dictionary<string, Quaternion> jointRotation;
-    
-
-    public string signName;
+    private Dictionary<string, Dictionary<string, Quaternion>> handData = new Dictionary<string, Dictionary<string, Quaternion>>();
     public float rotationAngle = -60.0f;
 
     void Start()
     {
-        jointRotation = new Dictionary<string, Quaternion>();
-    }
-
-    public void LoadHandData(Transform wrist, string letter)
-    {   
-        string filePath = System.IO.Path.Combine(Application.streamingAssetsPath, "Shape Data", letter.ToString().ToUpper() + ".txt");
         
-        StartCoroutine(DownloadHandData(filePath, wrist));
+        //StartCoroutine(LoadAllHandData());
     }
 
-
-    private IEnumerator DownloadHandData(string filePath, Transform wrist)
+    public IEnumerator LoadAllHandData()
     {
-        using (UnityWebRequest webRequest = UnityWebRequest.Get(filePath))
+        string folderPath = Path.Combine(Application.streamingAssetsPath, "Shape Data");
+        string allFilesPath = Path.Combine(folderPath, "allFiles.txt");
+
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(allFilesPath))
         {
             yield return webRequest.SendWebRequest();
 
             if (webRequest.result != UnityWebRequest.Result.Success)
             {
-                Debug.LogError("Failed to load hand data from: " + filePath);
+                Debug.LogError("Failed to load allFiles.txt");
                 yield break;
             }
 
-            // Parse the data from the response
-            string responseText = webRequest.downloadHandler.text;
-            string[] lines = responseText.Split('\n');
-
-            foreach (var line in lines)
+            foreach (string fileName in webRequest.downloadHandler.text.Split('\n'))
             {
-                if (line.Trim().Length == 0) { continue; }
+                if (string.IsNullOrWhiteSpace(fileName)) continue;
 
-                // Parse the data line, e.g., "R_IndexProximal: Pos(-0.003732, 0.002189, 0.059548) Rot(0.151882, -0.07698268, 0.0411778, 0.9845354)"
-                string jointName = line.Split(':')[0].Split('_')[1].Trim().ToLower();
-                string rotString = line.Split("Rot(")[1].Split(')')[0];
+                string filePath = Path.Combine(folderPath, fileName.Trim());
+                using (UnityWebRequest fileRequest = UnityWebRequest.Get(filePath))
+                {
+                    yield return fileRequest.SendWebRequest();
 
-                
-                Quaternion rotation = ParseQuaternion(rotString);
+                    if (fileRequest.result != UnityWebRequest.Result.Success) continue;
 
-                jointRotation[jointName] = rotation;
+                    Dictionary<string, Quaternion> jointRotation = new Dictionary<string, Quaternion>();
+                    foreach (var line in fileRequest.downloadHandler.text.Split('\n'))
+                    {
+                        if (line.Trim().Length == 0) continue;
+                        string jointName = line.Split(':')[0].Split('_')[1].Trim().ToLower();
+                        string rotString = line.Split("Rot(")[1].Split(')')[0];
+                        jointRotation[jointName] = ParseQuaternion(rotString);
+                    }
+
+                    string letter = fileName.Split('.')[0];
+                    handData[letter] = jointRotation;
+                }
             }
-
-            ApplyHandData(wrist, wrist);
         }
+
+        Debug.Log("All hand data loaded successfully.");
     }
 
-    private void ApplyHandData(Transform joint, Transform wrist)
+
+    public void LoadHandData(Transform wrist, string letter)
+    {
+        string upperLetter = letter.ToUpper();
+        if (!handData.ContainsKey(upperLetter))
+        {
+            Debug.LogError("No hand data found for letter: " + upperLetter);
+            return;
+        }
+
+        Dictionary<string, Quaternion> jointRotation = handData[upperLetter];
+        ApplyHandData(wrist, wrist, jointRotation);
+    }
+
+    private void ApplyHandData(Transform joint, Transform wrist, Dictionary<string, Quaternion> jointRotation)
     {
         string jointName = joint.name.Split('_')[1].ToLower();
-        
+
         if (jointRotation.ContainsKey(jointName))
         {
             joint.localRotation = jointRotation[jointName];
 
-            if (jointName.Contains("metacarpal") || jointName.Contains("palm"))
-            {
-                joint.RotateAround(wrist.position, wrist.right, rotationAngle);
-            }
+            //if (jointName.Contains("metacarpal") || jointName.Contains("palm"))
+            //{
+            //    joint.RotateAround(wrist.position, wrist.right, rotationAngle);
+            //}
         }
 
         foreach (Transform child in joint)
         {
-            ApplyHandData(child, wrist);
+            ApplyHandData(child, wrist, jointRotation);
         }
     }
 

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7428618521436887696}
   - component: {fileID: 248124509282333974}
-  - component: {fileID: 7678871537905612194}
+  - component: {fileID: 4507109518052658629}
   m_Layer: 0
   m_Name: TP_Line
   m_TagString: Untagged
@@ -137,7 +137,7 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 0
---- !u!114 &7678871537905612194
+--- !u!114 &4507109518052658629
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

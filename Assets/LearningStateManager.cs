@@ -1,59 +1,81 @@
 using System.Collections;
 using System.Collections.Generic;
-
+using System.Diagnostics;
 using UnityEngine;
 
 public class LearningStateManager : MonoBehaviour
 {
-    private List<string> learningStates = new List<string> { "G", "F" };
+    private List<(string Sign, string Hand)> learningStates = new List<(string, string)>
+    {
+        ("g", "Left"),
+        ("f", "Right"),
+        ("s", "Any"),
+        ("f", "Right"),
+        ("i", "Right")
+    };
+    private bool mirrowed = true;
+    private string restPoseName = "RESTPOSE";
     private int currentStateIndex = 0;
 
     public HandDataLoader handDataLoader;
     public Transform leftHand;
     public Transform rightHand;
 
-    // Current state property
-    public string CurrentState { get; private set; }
+    public (string Sign, string Hand) CurrentState { get; private set; }
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(InitializeHandData());
+    }
+
+    private IEnumerator InitializeHandData()
+    {
+        yield return StartCoroutine(handDataLoader.LoadAllHandData());
+        ApplyHandShape();
+    }
+
+    private void ApplyHandShape()
+    {
+
         CurrentState = learningStates[currentStateIndex];
         
-        handDataLoader.LoadHandData(rightHand, "F");
-        
+        ApplyRestPosition(rightHand);
+        ApplyRestPosition(leftHand);
 
-        handDataLoader.LoadHandData(leftHand, "G");
-        
+        if (CurrentState.Hand == "Right" || CurrentState.Hand == "Any")
+        {
+            handDataLoader.LoadHandData(mirrowed ? leftHand : rightHand, CurrentState.Sign);
+            return;
+        }
 
+        if (CurrentState.Hand == "Left" || CurrentState.Hand == "Any")
+        {
+            handDataLoader.LoadHandData(mirrowed ? rightHand : leftHand, CurrentState.Sign);
+            return;
+        }
     }
 
-
-
-    public void ChangeState(string nextState)
+    private void ApplyRestPosition(Transform hand)
     {
-        // Check if the requested state is the current state + 1 in sequence
-        if (learningStates.Contains(nextState))
-        {
-            int nextIndex = learningStates.IndexOf(nextState);
-
-            if (nextIndex == currentStateIndex + 1)
-            {
-                currentStateIndex = nextIndex;
-                CurrentState = learningStates[currentStateIndex];
-                Debug.Log("Changed to learning state: " + CurrentState);
-                //handDataLoader.LoadHandData(CurrentState);
-            }
-            else
-            {
-                Debug.LogWarning("Cannot skip states. Current state is: " + CurrentState);
-            }
-        }
-        else
-        {
-            Debug.LogWarning("Invalid state: " + nextState);
-        }
+        handDataLoader.LoadHandData(hand, restPoseName);
     }
 
+    public void ChangeState(string performedSign, string performedHand)
+    {
+        if (currentStateIndex >= learningStates.Count-1) return;
+
+        var expectedState = learningStates[currentStateIndex];
+
+        if (performedSign == expectedState.Sign &&
+            (performedHand == expectedState.Hand || expectedState.Hand == "Any"))
+        {
+            currentStateIndex++;
+            ApplyHandShape();
+            
+        }
+        //else
+        //{
+        //    Log.L($"Incorrect gesture. Expected: {expectedState.Sign} on {expectedState.Hand}, but got: {performedSign} on {performedHand}");
+        //}
+    }
 }
