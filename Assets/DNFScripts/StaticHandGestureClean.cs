@@ -152,7 +152,7 @@ namespace UnityEngine.XR.Hands.Samples.GestureSample
                 if (holdTimer > m_MinimumHoldTime)
                 {
                     m_GesturePerformed?.Invoke();
-                    string name = m_HandShape.name;
+                    string name = m_HandShape != null ? m_HandShape.name : m_HandPose.name;
 
                     spellBuilder.OnGestureRecognized(name, m_HandTrackingEvents.handedness.ToString());
                     m_PerformedTriggered = true;

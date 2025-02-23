@@ -57,6 +57,7 @@ public class HandDataLoader : MonoBehaviour
         }
 
         Debug.Log("All hand data loaded successfully.");
+        
     }
 
 
