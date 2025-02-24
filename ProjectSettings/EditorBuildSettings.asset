@@ -6,11 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/InfoScene.unity
+    guid: cd2d81c5c39cbde44b5d95794e18cbd1
+  - enabled: 1
     path: Assets/Scenes/IntroScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 0
     path: Assets/Samples/XR Hands/1.4.3/HandVisualizer/HandVisualizer.unity
     guid: ab7acf0d9677fbe4db51bc36647d4fcb
+  - enabled: 0
+    path: Assets/Scenes/HandsDemoScene.unity
+    guid: 294820fa15d272647b1dd807a938eb12
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: b91871bc79eeea549ba4f64e1343bff9, type: 2}
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: db68e6b1cdaef4e40851688432029262, type: 2}
