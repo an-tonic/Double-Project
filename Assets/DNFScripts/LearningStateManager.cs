@@ -18,11 +18,13 @@ public class LearningStateManager : MonoBehaviour
         ("a", "Left")
 
     };
+    private string infoText = "Light\nStop";
     private bool mirrowed = true;
     private string restPoseName = "RESTPOSE";
     private int currentStateIndex = 0;
 
     public HandDataLoader handDataLoader;
+    public HighlightLetter highlightLetter;
     public Transform leftHand;
     public Transform rightHand;
 
@@ -30,6 +32,7 @@ public class LearningStateManager : MonoBehaviour
 
     void Start()
     {
+        highlightLetter.setText(infoText);
         StartCoroutine(InitializeHandData());
     }
 
@@ -43,7 +46,7 @@ public class LearningStateManager : MonoBehaviour
     {
 
         CurrentState = learningStates[currentStateIndex];
-        
+
         ApplyRestPosition(rightHand);
         ApplyRestPosition(leftHand);
 
@@ -67,20 +70,17 @@ public class LearningStateManager : MonoBehaviour
 
     public void ChangeState(string performedSign, string performedHand)
     {
-        if (currentStateIndex >= learningStates.Count-1) return;
-
+        if (currentStateIndex >= learningStates.Count - 1) return;
         var expectedState = learningStates[currentStateIndex];
 
-        if (performedSign == expectedState.Sign &&
-            (performedHand == expectedState.Hand || expectedState.Hand == "Any"))
+        if (performedSign == expectedState.Sign && (performedHand == expectedState.Hand || expectedState.Hand == "Any"))
         {
+            int letterIndex = infoText.ToLower().IndexOf(performedSign);
+            highlightLetter.glowLetter(letterIndex);
             currentStateIndex++;
             ApplyHandShape();
-            
+
         }
-        //else
-        //{
-        //    Log.L($"Incorrect gesture. Expected: {expectedState.Sign} on {expectedState.Hand}, but got: {performedSign} on {performedHand}");
-        //}
+
     }
 }

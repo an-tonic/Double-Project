@@ -50,10 +50,11 @@ public class SpellBuilder : MonoBehaviour
 
     public void OnGestureRecognized(string gesture, string handedness)
     {
+        gesture = gesture.ToLower();
         learningStateManager.ChangeState(gesture, handedness);
         Log.L("Current spell: " + currentSpell);
 
-        gesture = gesture.ToLower();
+        
         if (gesture == "s" && currentSpell.activeHand != handedness)
         {
             currentSpell.StopCast();
@@ -445,6 +446,7 @@ public class FollowTransform : VesselBehaviour
     {
         if (targetTransform == null) return;
         transform.position = targetTransform.TransformPoint(trackingPoint);
+        transform.rotation = targetTransform.rotation;
     }
 
     void Update()
@@ -454,5 +456,7 @@ public class FollowTransform : VesselBehaviour
         //Vector3 targetPosition = targetTransform.position + targetTransform.right * trackingPoint.x + targetTransform.up * trackingPoint.y + targetTransform.forward * -trackingPoint.z;
         Vector3 targetPosition = targetTransform.TransformPoint(trackingPoint);
         transform.position = Vector3.Lerp(transform.position, targetPosition, smoothingFactor);
+        transform.rotation = targetTransform.rotation;
+
     }
 }
