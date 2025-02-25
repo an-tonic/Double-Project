@@ -102,8 +102,9 @@ public static class LetterExtensions
 public class Vessel
 {
     public GameObject main;
-    public Material material;
     public GameObject effect;
+    public GameObject shape;
+    public Material material;
     public int damage;
     public VesselBehaviour behaviour;
 
@@ -282,6 +283,8 @@ public class Fire : Spell
 
     }
 
+  
+
 }
 
 
@@ -307,7 +310,11 @@ public class Light : Spell
         {
             vessel = new Vessel();
             activeHand = handedness;
-            vessel.effect = Instantiate(Resources.Load<GameObject>("Effects/Light"), vessel.main.transform.position, vessel.main.transform.rotation, vessel.main.transform);
+            Transform spellTF = vessel.main.transform;
+            vessel.shape = Instantiate(Resources.Load<GameObject>("Effects/Disk"), spellTF.position, spellTF.rotation * Quaternion.Euler(90, 0, 0), spellTF);
+            vessel.effect = Instantiate(Resources.Load<GameObject>("Effects/Light"), spellTF.position, spellTF.rotation, spellTF);
+            vessel.effect.SetActive(false);
+
             vessel.material = Resources.Load<Material>("Materials/Light Glow");
             Transform targetHand = handedness == "Right" ? targetRight : targetLeft;
 
@@ -316,13 +323,19 @@ public class Light : Spell
         }
 
 
+        vessel.shape.GetComponent<UnityEngine.Light>().intensity = 1.0f + currentLetterIndex * 0.3f;
+        vessel.shape.GetComponent<UnityEngine.Light>().range = 4.0f + currentLetterIndex * 0.25f;
+        vessel.shape.transform.Find("Halo Large").GetComponent<UnityEngine.Light>().range = 0.2f + currentLetterIndex * 0.02f;
+
         vessel.effect.GetComponent<UnityEngine.Light>().intensity = 1.0f + currentLetterIndex * 0.2f;
-        vessel.effect.GetComponent<UnityEngine.Light>().range = 2.0f + currentLetterIndex * 0.25f;
-        vessel.effect.transform.Find("Halo Center").GetComponent<UnityEngine.Light>().range = 0.01f + currentLetterIndex * 0.01f;
-        vessel.effect.transform.Find("Halo Large").GetComponent<UnityEngine.Light>().range = 0.1f + currentLetterIndex * 0.05f;
+        vessel.effect.GetComponent<UnityEngine.Light>().range = 3.0f + currentLetterIndex * 0.25f;
+        vessel.effect.transform.Find("Halo Large").GetComponent<UnityEngine.Light>().range = 0.2f + currentLetterIndex * 0.02f;
+
         currentLetterIndex++;
         return this;
     }
+  
+    
 
 }
 
@@ -348,11 +361,13 @@ public class Ball : Spell
         if (letters.IsFirst(letter))
         {
             activeHand = handedness;
-            vessel.effect = Instantiate(Resources.Load<GameObject>("Effects/Ball"), vessel.main.transform.position, vessel.main.transform.rotation, vessel.main.transform);
-            vessel.effect.GetComponent<MeshRenderer>().material = vessel.material;
+            Destroy(vessel.shape.gameObject);
+            vessel.effect.SetActive(true);
+            vessel.shape = Instantiate(Resources.Load<GameObject>("Effects/Ball"), vessel.main.transform.position, vessel.main.transform.rotation, vessel.main.transform);
+            vessel.shape.GetComponent<MeshRenderer>().material = vessel.material;
         }
 
-        vessel.effect.transform.localScale *= (1 + currentLetterIndex * 0.3f);
+        vessel.shape.transform.localScale *= (1 + currentLetterIndex * 0.3f);
 
         currentLetterIndex++;
         return this;
