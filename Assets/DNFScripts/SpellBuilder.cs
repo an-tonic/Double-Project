@@ -38,7 +38,7 @@ public class SpellBuilder : MonoBehaviour
 
         empty.nextSpells = new List<Spell> { teleportation, fire, light };
 
-        fire.nextSpells = new List<Spell> { };
+        fire.nextSpells = new List<Spell> { ball };
         teleportation.nextSpells = new List<Spell> { };
         light.nextSpells = new List<Spell> { ball };
         ball.nextSpells = new List<Spell> { };
@@ -54,7 +54,7 @@ public class SpellBuilder : MonoBehaviour
         learningStateManager.ChangeState(gesture, handedness);
         Log.L("Current spell: " + currentSpell);
 
-        
+
         if (gesture == "s" && currentSpell.activeHand != handedness)
         {
             currentSpell.StopCast();
@@ -106,22 +106,33 @@ public class Vessel
     public GameObject shape;
     public Material material;
     public int damage;
-    public VesselBehaviour behaviour;
+    public VesselBehaviour mainBehaviour;
+    public VesselBehaviour secondaryBehaviour;
 
     public Vessel()
     {
         main = new GameObject("VesselMain");
     }
-    public void AddBehavior<T>(Transform target, Vector3 offset) where T : VesselBehaviour
+    public void AddBehavior<T>(Transform target = null, Vector3? offset = null) where T : VesselBehaviour
     {
-        if (behaviour != null)
+        if (mainBehaviour != null)
         {
-            UnityEngine.Object.Destroy(behaviour);
+            UnityEngine.Object.Destroy(mainBehaviour);
         }
-        behaviour = main.AddComponent<T>();
-        behaviour.Initialize(target, offset);
+        mainBehaviour = main.AddComponent<T>();
+        Vector3 finalOffset = offset ?? Vector3.zero;
+        mainBehaviour.Initialize(target, finalOffset);
     }
+    public void AddSecondaryBehavior<T>(bool enable = false) where T : VesselBehaviour
+    {
+        if (secondaryBehaviour != null)
+        {
+            UnityEngine.Object.Destroy(secondaryBehaviour);
+        }
+        secondaryBehaviour = main.AddComponent<T>();
+        secondaryBehaviour.enabled = enable;
 
+    }
 }
 
 public abstract class Spell : MonoBehaviour
@@ -263,15 +274,16 @@ public class Fire : Spell
         {
             vessel = new Vessel();
             activeHand = handedness;
-            Vector3 offset = -targetRight.up * 0.05f + targetRight.forward * 0.1f;
-            vessel.effect = Instantiate(Resources.Load<GameObject>("Effects/Fire"), vessel.main.transform.position, vessel.main.transform.rotation, vessel.main.transform);
+            vessel.shape = Instantiate(Resources.Load<GameObject>("Effects/Fire"), vessel.main.transform.position, vessel.main.transform.rotation * Quaternion.Euler(180, 0, 0), vessel.main.transform);
 
+            vessel.material = Resources.Load<Material>("Materials/Fire Material");
             Transform targetHand = handedness == "Right" ? targetRight : targetLeft;
-            ObjectSmoothing smoothing = vessel.main.AddComponent<ObjectSmoothing>();
-            smoothing.handTransform = targetHand;
 
-            flames = vessel.effect.transform.Find("Flames").GetComponent<ParticleSystem>();
-            secondaryFlames = vessel.effect.transform.Find("Flames Secondary").GetComponent<ParticleSystem>();
+            vessel.AddBehavior<FollowTransform>(targetHand, Constants.handOffset);
+
+
+            flames = vessel.shape.transform.Find("Flames").GetComponent<ParticleSystem>();
+            secondaryFlames = vessel.shape.transform.Find("Flames Secondary").GetComponent<ParticleSystem>();
         }
 
         var emission = flames.emission;
@@ -283,7 +295,7 @@ public class Fire : Spell
 
     }
 
-  
+
 
 }
 
@@ -320,6 +332,8 @@ public class Light : Spell
 
             vessel.AddBehavior<FollowTransform>(targetHand, Constants.handOffset);
 
+            vessel.AddSecondaryBehavior<FollowCamera>();
+
         }
 
 
@@ -334,8 +348,8 @@ public class Light : Spell
         currentLetterIndex++;
         return this;
     }
-  
-    
+
+
 
 }
 
@@ -362,9 +376,16 @@ public class Ball : Spell
         {
             activeHand = handedness;
             Destroy(vessel.shape.gameObject);
-            vessel.effect.SetActive(true);
+            if (vessel.effect != null)
+            {
+                vessel.effect.SetActive(true);
+            }
             vessel.shape = Instantiate(Resources.Load<GameObject>("Effects/Ball"), vessel.main.transform.position, vessel.main.transform.rotation, vessel.main.transform);
             vessel.shape.GetComponent<MeshRenderer>().material = vessel.material;
+            if (vessel.secondaryBehaviour == null)
+            {
+                vessel.AddSecondaryBehavior<FlyForward>();
+            }
         }
 
         vessel.shape.transform.localScale *= (1 + currentLetterIndex * 0.3f);
@@ -375,10 +396,15 @@ public class Ball : Spell
 
     public override Spell ActivateSpell()
     {
-        Log.L("Ball activated");
-        //Vector3 offset = Camera.main.transform.position - vessel.main.transform.position;
-        Vector3 offset = Camera.main.transform.InverseTransformPoint(vessel.main.transform.position);
-        vessel.AddBehavior<FollowTransform>(Camera.main.transform, offset);
+
+        if (vessel.secondaryBehaviour != null)
+        {
+            vessel.secondaryBehaviour.enabled = true;
+        }
+        if (vessel.mainBehaviour != null)
+        {
+            vessel.mainBehaviour.enabled = false;
+        }
         currentLetterIndex = 0;
         Destroy(vessel.main.gameObject, (currentLetterIndex + 1) * 20);
         return null;
@@ -473,5 +499,36 @@ public class FollowTransform : VesselBehaviour
         transform.position = Vector3.Lerp(transform.position, targetPosition, smoothingFactor);
         transform.rotation = targetTransform.rotation;
 
+    }
+}
+
+public class FollowCamera : VesselBehaviour
+{
+    private Transform target;
+    public float smoothing = 0.1f;
+    private Vector3 offset;
+
+    void Start()
+    {
+        target = Camera.main.transform;
+        offset = target.InverseTransformPoint(transform.position);
+    }
+
+    void Update()
+    {
+        if (!target) return;
+        transform.position = Vector3.Lerp(transform.position, target.TransformPoint(offset), smoothing);
+        transform.rotation = target.rotation;
+    }
+}
+
+
+public class FlyForward : VesselBehaviour
+{
+    public float speed = 2f;
+
+    void Update()
+    {
+        transform.position += transform.forward * speed * Time.deltaTime;
     }
 }

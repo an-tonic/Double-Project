@@ -199,9 +199,11 @@ GameObject:
   - component: {fileID: 1961133524908336320}
   - component: {fileID: 5963632115875382496}
   - component: {fileID: 3799798937040728935}
+  - component: {fileID: 929771981087247401}
+  - component: {fileID: -3273008228745046997}
   m_Layer: 0
   m_Name: Light
-  m_TagString: Untagged
+  m_TagString: LightVolume
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -269,7 +271,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -295,9 +297,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 5311145425211053939, guid: 82e0d81c32ea07041a9d824bef843b49, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 9af9fbbcc89744d42ae251acabd31e4a, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 8914e2d2e0aab0449ac46b443229989e, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.02
+  m_Volume: 0.06
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -381,3 +383,36 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!135 &929771981087247401
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5241036340021099755}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-3273008228745046997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5241036340021099755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 244e6eb870184354da7d66deaeb0f733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

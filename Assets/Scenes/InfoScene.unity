@@ -122,6 +122,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &42634971 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8733093507751517968, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
+  m_PrefabInstance: {fileID: 3113582726696116334}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &348170532 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3356991306335605903, guid: e5db301629853dd4a99835fa70099d79, type: 3}
@@ -361,6 +366,8 @@ MonoBehaviour:
   - {fileID: 1958146349}
   - {fileID: 710142087}
   buttonText: {fileID: 348170532}
+  xrOrigin: {fileID: 42634971}
+  targetToLookAt: {fileID: 2105827454}
 --- !u!4 &664583120
 Transform:
   m_ObjectHideFlags: 0

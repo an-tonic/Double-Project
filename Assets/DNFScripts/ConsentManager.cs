@@ -10,6 +10,7 @@ public class ConsentScreen : MonoBehaviour
 
     private int currentTextIndex = 0;
 
+
     public void OnProceedPressed()
     {
         if(currentTextIndex == infoTexts.Length-1)
