@@ -20,6 +20,7 @@ public class FadeController : MonoBehaviour
 
     private IEnumerator FadeProcess(float targetAlpha, float fadeDuration)
     {
+        Log.L("starting fade process");
         float startAlpha = fadeMaterial.color.a;
         float time = 0;
 

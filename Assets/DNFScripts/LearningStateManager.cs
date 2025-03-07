@@ -7,7 +7,7 @@ public class LearningStateManager : MonoBehaviour
 {
     private List<(string Sign, string Hand)> learningStates = new List<(string, string)>
     {
-        ("l", "Right"),
+        ("f", "Right"),
         ("s", "Left"),
         ("s", "Any"),
         ("l", "Right"),

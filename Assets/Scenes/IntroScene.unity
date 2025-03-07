@@ -6254,7 +6254,21 @@ MonoBehaviour:
   leftWrist: {fileID: 1535838306}
   rightWrist: {fileID: 536680074}
   xrOrigin: {fileID: 1395397363}
-  learningStateManager: {fileID: 307605786}
+  m_GesturePerformed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 307605786}
+        m_TargetAssemblyTypeName: LearningStateManager, Assembly-CSharp
+        m_MethodName: ChangeState
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &1111271193
 Transform:
   m_ObjectHideFlags: 0

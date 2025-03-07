@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class FallManager : MonoBehaviour
 {
@@ -10,7 +10,7 @@ public class FallManager : MonoBehaviour
     public float fallThreshold = -5f;
     public float fadeDuration = 7.0f;
     public float fadeStrength = 0.8f;
-    
+
 
     private Rigidbody rb;
     private bool isFalling = false;
@@ -22,23 +22,25 @@ public class FallManager : MonoBehaviour
 
     void Update()
     {
+      
         if (xrOrigin.transform.position.y < fallThreshold && !isFalling)
         {
-            StartCoroutine(FallSequence());
+            Log.L("Yes, falling");
+            StartCoroutine(RespawnSequence());
         }
     }
 
-    IEnumerator FallSequence()
+    IEnumerator RespawnSequence()
     {
         isFalling = true;
-
+        Log.L("fading in");
         yield return fadeController.FadeTo(fadeStrength, fadeDuration);
-
+        Log.L("moving");
         rb.velocity = Vector3.zero;
         xrOrigin.transform.position = startPosition.position;
-
+        Log.L("fade out");
         yield return fadeController.FadeTo(0, fadeDuration);
-
+        Log.L("not falling");
         isFalling = false;
     }
 

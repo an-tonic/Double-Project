@@ -16,7 +16,7 @@ public class PlayerIllumination : MonoBehaviour
         Log.L("2");
 
             audioManager.SetActive(false);
-            fadeController.FadeTo(0, fadeDuration); 
+            //fadeController.FadeTo(0, fadeDuration); 
         }
     }
 
@@ -29,7 +29,7 @@ public class PlayerIllumination : MonoBehaviour
             Log.L("4");
 
             audioManager.SetActive(true);
-            fadeController.FadeTo(fadeStrength, fadeDuration);
+            //fadeController.FadeTo(fadeStrength, fadeDuration);
         }
     }
 }

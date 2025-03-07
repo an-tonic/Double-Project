@@ -1,8 +1,10 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using static EmptySpell;
 
 public static class Constants
@@ -16,23 +18,19 @@ public class SpellBuilder : MonoBehaviour
     public Transform rightWrist;
     public Transform xrOrigin;
 
-    public LearningStateManager learningStateManager;
+    [SerializeField]
+    [Tooltip("The event fired when the gesture is performed.")]
+    UnityEvent<string, string> m_GesturePerformed;
 
     private Spell currentSpell;
     private Spell empty;
-    private Spell nextSpell;
     void Start()
     {
-        empty = gameObject.AddComponent<EmptySpell>();
-
-        Spell teleportation = gameObject.AddComponent<Teleportation>();
-        teleportation.Initialize(rightWrist, leftWrist, xrOrigin);
-        Spell fire = gameObject.AddComponent<Fire>();
-        fire.Initialize(rightWrist, leftWrist, xrOrigin);
-        Spell light = gameObject.AddComponent<Light>();
-        light.Initialize(rightWrist, leftWrist, xrOrigin);
-        Spell ball = gameObject.AddComponent<Ball>();
-        ball.Initialize(rightWrist, leftWrist, xrOrigin);
+        empty = AddSpell<EmptySpell>();
+        Spell teleportation = AddSpell<Teleportation>();
+        Spell fire = AddSpell<Fire>();
+        Spell light = AddSpell<Light>();
+        Spell ball = AddSpell<Ball>();
 
 
 
@@ -51,7 +49,8 @@ public class SpellBuilder : MonoBehaviour
     public void OnGestureRecognized(string gesture, string handedness)
     {
         gesture = gesture.ToLower();
-        learningStateManager.ChangeState(gesture, handedness);
+        
+        m_GesturePerformed?.Invoke(gesture, handedness);
         Log.L("Current spell: " + currentSpell);
 
 
@@ -64,10 +63,7 @@ public class SpellBuilder : MonoBehaviour
 
         if (gesture == "a" && currentSpell.activeHand != handedness)
         {
-
             currentSpell = currentSpell.ActivateSpell();
-            Log.L(nextSpell);
-
             return;
         }
 
@@ -79,24 +75,24 @@ public class SpellBuilder : MonoBehaviour
 
     }
 
+    private Spell AddSpell<T>() where T : Spell
+    {
+        Spell s = gameObject.AddComponent<T>();
+        s.Initialize(rightWrist, leftWrist, xrOrigin);
+        return s;
+    }
 }
 
 public static class LetterExtensions
 {
-    public static bool IsFirst(this List<(string Sign, string Hand)> letters, string letter)
-    {
-        return letters.Count > 0 && letters[0].Sign == letter;
-    }
+    public static bool IsFirst(this List<(string Sign, string Hand)> letters, string letter) =>
+        letters.Count > 0 && letters[0].Sign == letter;
 
-    public static bool IsCoorectHand(this List<(string Sign, string Hand)> letters, int index, string hand)
-    {
-        return letters.Count > 0 && letters[index].Hand == hand;
-    }
+    public static bool IsCoorectHand(this List<(string Sign, string Hand)> letters, int index, string hand) =>
+        letters.Count > 0 && letters[index].Hand == hand;
 
-    public static bool IsCorrectLetter(this List<(string Sign, string Hand)> letters, int index, string letter)
-    {
-        return letters.Count > 0 && letters[index].Sign == letter;
-    }
+    public static bool IsCorrectLetter(this List<(string Sign, string Hand)> letters, int index, string letter) =>
+        letters.Count > 0 && letters[index].Sign == letter;
 }
 
 public class Vessel
@@ -133,6 +129,30 @@ public class Vessel
         secondaryBehaviour.enabled = enable;
 
     }
+
+    public void DestroyAfter(MonoBehaviour caller, float seconds)
+    {
+        caller.StartCoroutine(DestroySequence(seconds));
+    }
+
+
+    private IEnumerator DestroySequence(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        if (mainBehaviour != null)
+        {
+            mainBehaviour.enabled = false;
+        }
+        if (secondaryBehaviour != null)
+        {
+            secondaryBehaviour.enabled = false;
+        }
+        //Have to move the spell somewhare so that the collider is away and ontriggerext works. Othervise, if deleted, the event doesn't happen.
+        main.transform.position = new Vector3(0, -100, 0);
+        yield return new WaitForSeconds(0.1f);
+        UnityEngine.Object.Destroy(main);
+    }
+
 }
 
 public abstract class Spell : MonoBehaviour
@@ -163,10 +183,6 @@ public abstract class Spell : MonoBehaviour
         return null;
     }
 
-    public void RecieveVessel(Vessel vessel)
-    {
-        this.vessel = vessel;
-    }
 
     public void Initialize(Transform targetR, Transform targetL, Transform targetXRorigin)
     {
@@ -182,7 +198,7 @@ public abstract class Spell : MonoBehaviour
             Spell nextSpell = FindNextSpell(letter, handedness);
             if (nextSpell)
             {
-                nextSpell.RecieveVessel(vessel);
+                nextSpell.vessel = this.vessel;
                 nextSpell.Cast(letter, handedness);
                 currentLetterIndex = 0;
                 return nextSpell;
@@ -212,7 +228,7 @@ public abstract class Spell : MonoBehaviour
     {
         if (vessel != null)
         {
-            Destroy(vessel.main.gameObject);
+            vessel.DestroyAfter(this, 0);
             currentLetterIndex = 0;
         }
     }
@@ -406,7 +422,8 @@ public class Ball : Spell
             vessel.mainBehaviour.enabled = false;
         }
         currentLetterIndex = 0;
-        Destroy(vessel.main.gameObject, (currentLetterIndex + 1) * 20);
+        vessel.DestroyAfter(this, (currentLetterIndex + 3) * 20);
+        //Destroy(vessel.main.gameObject, (currentLetterIndex + 1) * 20);
         return null;
     }
 
