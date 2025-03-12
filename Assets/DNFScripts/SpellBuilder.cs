@@ -1,11 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
-using static EmptySpell;
 
 public static class Constants
 {
@@ -49,7 +46,7 @@ public class SpellBuilder : MonoBehaviour
     public void OnGestureRecognized(string gesture, string handedness)
     {
         gesture = gesture.ToLower();
-        
+
         m_GesturePerformed?.Invoke(gesture, handedness);
         Log.L("Current spell: " + currentSpell);
 
@@ -92,7 +89,7 @@ public static class LetterExtensions
         letters.Count > 0 && letters[index].Hand == hand;
 
     public static bool IsCorrectLetter(this List<(string Sign, string Hand)> letters, int index, string letter) =>
-        letters.Count > 0 && letters[index].Sign == letter;
+        letters.Count > 0 && index < letters.Count && letters[index].Sign == letter;
 }
 
 public class Vessel
@@ -160,6 +157,7 @@ public abstract class Spell : MonoBehaviour
 
     public List<Spell> nextSpells;
     public List<(string Sign, string Hand)> letters;
+    public int manaCost = 10;
     public string activeHand;
 
     protected Vessel vessel;
@@ -193,6 +191,7 @@ public abstract class Spell : MonoBehaviour
 
     public Spell PrepareAndCast(string letter, string handedness)
     {
+       
         if (currentLetterIndex > 0 && !letters.IsCorrectLetter(currentLetterIndex, letter))
         {
             Spell nextSpell = FindNextSpell(letter, handedness);
@@ -219,6 +218,7 @@ public abstract class Spell : MonoBehaviour
 
         }
 
+        GameManager.Instance.UseMana(manaCost);
         return Cast(letter, handedness);
     }
 
@@ -245,6 +245,7 @@ public class EmptySpell : Spell
 
     void Start()
     {
+        manaCost = 0;
 
         letters = new List<(string Sign, string Hand)>();
     }
@@ -320,6 +321,7 @@ public class Light : Spell
 {
     void Start()
     {
+
         letters = new List<(string Sign, string Hand)>
         {
             ("l", "Any"),
@@ -458,8 +460,13 @@ public class Teleportation : Spell
         }
         else if (letter == letters[1].Sign && CheckRaycast(out Vector3 hitPoint))
         {
+            Vector3 difference = Camera.main.transform.position - xrOrigin.position;
+
             xrOrigin.position = hitPoint;
+            
+            xrOrigin.transform.Find("Camera Offset").localPosition += new Vector3(difference.x, 0f, difference.z);
             //StopCast();
+
         }
         return this;
     }
@@ -542,7 +549,7 @@ public class FollowCamera : VesselBehaviour
 
 public class FlyForward : VesselBehaviour
 {
-    public float speed = 2f;
+    public float speed = 3f;
 
     void Update()
     {

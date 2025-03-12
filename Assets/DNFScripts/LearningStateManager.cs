@@ -7,9 +7,10 @@ public class LearningStateManager : MonoBehaviour
 {
     private List<(string Sign, string Hand)> learningStates = new List<(string, string)>
     {
-        ("f", "Right"),
+        ("l", "Right"),
         ("s", "Left"),
-        ("s", "Any"),
+        ("l", "Left"),
+        ("s", "Right"),
         ("l", "Right"),
         ("i", "Right"),
         ("b", "Right"),
@@ -18,7 +19,7 @@ public class LearningStateManager : MonoBehaviour
         ("a", "Left")
 
     };
-    private string infoText = "Light\nStop";
+    private string infoText = "The Light will never Stop.";
     private bool mirrowed = true;
     private string restPoseName = "RESTPOSE";
     private int currentStateIndex = 0;
