@@ -8,3 +8,12 @@ RESTPOSE.txt
 S.txt
 D.txt
 B.txt
+A.txt
+C.txt
+C.txt
+E.txt
+K.txt
+V.txt
+U.txt
+W.txt
+Y.txt

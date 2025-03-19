@@ -7,19 +7,23 @@ public class LearningStateManager : MonoBehaviour
 {
     private List<(string Sign, string Hand)> learningStates = new List<(string, string)>
     {
-        ("l", "Right"),
-        ("s", "Left"),
-        ("l", "Left"),
-        ("s", "Right"),
-        ("l", "Right"),
-        ("i", "Right"),
+        //("l", "Right"),
+        //("s", "Left"),
+        //("l", "Left"),
+        //("s", "Right"),
+        //("l", "Right"),
+        //("i", "Right"),
         ("b", "Right"),
-        ("a", "Right"),
-        ("l", "Right"),
-        ("a", "Left")
-
+        //("a", "Left"),
+        //("l", "Right"),
+        //("a", "Left")
+         
+        ("c", "Right"),
+        ("o", "Right"),
+        ("u", "Right"),
+        ("v", "Right")
     };
-    private string infoText = "The Light will never Stop.";
+    private string infoText = "The Light will never Set.";
     private bool mirrowed = true;
     private string restPoseName = "RESTPOSE";
     private int currentStateIndex = 0;
@@ -33,7 +37,7 @@ public class LearningStateManager : MonoBehaviour
 
     void Start()
     {
-        highlightLetter.setText(infoText);
+        if (highlightLetter != null) highlightLetter.setText(infoText);
         StartCoroutine(InitializeHandData());
     }
 
@@ -77,7 +81,7 @@ public class LearningStateManager : MonoBehaviour
         if (performedSign == expectedState.Sign && (performedHand == expectedState.Hand || expectedState.Hand == "Any"))
         {
             int letterIndex = infoText.ToLower().IndexOf(performedSign);
-            highlightLetter.glowLetter(letterIndex);
+            if (highlightLetter != null) highlightLetter.glowLetter(letterIndex);
             currentStateIndex++;
             ApplyHandShape();
 

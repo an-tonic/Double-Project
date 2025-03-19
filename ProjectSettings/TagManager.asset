@@ -6,6 +6,7 @@ TagManager:
   tags:
   - LightVolume
   - TeleportSurface
+  - PlayerHand
   layers:
   - Default
   - TransparentFX

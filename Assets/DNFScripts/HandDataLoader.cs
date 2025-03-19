@@ -7,7 +7,7 @@ using System.IO;
 public class HandDataLoader : MonoBehaviour
 {
     private Dictionary<string, Dictionary<string, Quaternion>> handData = new Dictionary<string, Dictionary<string, Quaternion>>();
-    public float rotationAngle = -60.0f;
+    public float rotationAngle = 0.0f;
 
     void Start()
     {
@@ -45,6 +45,8 @@ public class HandDataLoader : MonoBehaviour
                     foreach (var line in fileRequest.downloadHandler.text.Split('\n'))
                     {
                         if (line.Trim().Length == 0) continue;
+                        if (!(line.StartsWith("R_") || line.StartsWith("L_"))) continue;
+
                         string jointName = line.Split(':')[0].Split('_')[1].Trim().ToLower();
                         string rotString = line.Split("Rot(")[1].Split(')')[0];
                         jointRotation[jointName] = ParseQuaternion(rotString);
@@ -82,10 +84,10 @@ public class HandDataLoader : MonoBehaviour
         {
             joint.localRotation = jointRotation[jointName];
 
-            //if (jointName.Contains("metacarpal") || jointName.Contains("palm"))
-            //{
-            //    joint.RotateAround(wrist.position, wrist.right, rotationAngle);
-            //}
+            if (jointName.Contains("metacarpal") || jointName.Contains("palm"))
+            {
+                joint.RotateAround(wrist.position, wrist.right, rotationAngle);
+            }
         }
 
         foreach (Transform child in joint)

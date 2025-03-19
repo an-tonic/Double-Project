@@ -50,7 +50,10 @@ public class SpellBuilder : MonoBehaviour
         m_GesturePerformed?.Invoke(gesture, handedness);
         Log.L("Current spell: " + currentSpell);
 
-
+        if (currentSpell == null)
+        {
+            currentSpell = empty;
+        }
         if (gesture == "s" && currentSpell.activeHand != handedness)
         {
             currentSpell.StopCast();
@@ -64,10 +67,7 @@ public class SpellBuilder : MonoBehaviour
             return;
         }
 
-        if (currentSpell == null)
-        {
-            currentSpell = empty;
-        }
+
         currentSpell = currentSpell.PrepareAndCast(gesture, handedness);
 
     }
@@ -191,7 +191,7 @@ public abstract class Spell : MonoBehaviour
 
     public Spell PrepareAndCast(string letter, string handedness)
     {
-       
+
         if (currentLetterIndex > 0 && !letters.IsCorrectLetter(currentLetterIndex, letter))
         {
             Spell nextSpell = FindNextSpell(letter, handedness);
@@ -246,7 +246,7 @@ public class EmptySpell : Spell
     void Start()
     {
         manaCost = 0;
-
+        activeHand = "";
         letters = new List<(string Sign, string Hand)>();
     }
 
@@ -463,7 +463,7 @@ public class Teleportation : Spell
             Vector3 difference = Camera.main.transform.position - xrOrigin.position;
 
             xrOrigin.position = hitPoint;
-            
+
             xrOrigin.transform.Find("Camera Offset").localPosition += new Vector3(difference.x, 0f, difference.z);
             //StopCast();
 

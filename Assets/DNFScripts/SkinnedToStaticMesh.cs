@@ -13,7 +13,7 @@ public class SkinnedToStaticMesh : MonoBehaviour
         // Save as Prefab
 #if UNITY_EDITOR
         
-        string meshPath = "Assets/Prefabs/Hand Signs/" + signName + ".asset";
+        string meshPath = "Assets/Resources/Prefabs/Hand Signs/" + signName + ".asset";
         UnityEditor.AssetDatabase.CreateAsset(bakedMesh, meshPath);
         UnityEditor.AssetDatabase.SaveAssets();
 #endif
