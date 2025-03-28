@@ -13,11 +13,19 @@
       },
       "hash": "bf011881ec4afb0e073fb241a2f18eb6edacfe7f"
     },
-    "com.meta.xr.sdk.audio": {
-      "version": "68.0.0",
+    "com.unity.2d.sprite": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {}
+    },
+    "com.unity.ai.navigation": {
+      "version": "1.1.5",
       "depth": 0,
       "source": "registry",
-      "dependencies": {},
+      "dependencies": {
+        "com.unity.modules.ai": "1.0.0"
+      },
       "url": "https://packages.unity.com"
     },
     "com.unity.burst": {

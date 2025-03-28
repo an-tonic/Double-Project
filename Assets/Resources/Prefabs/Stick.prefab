@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6131819343037661482}
   - component: {fileID: 2062476904718121014}
   - component: {fileID: 3380892557577005944}
-  - component: {fileID: 1199157792480476168}
   - component: {fileID: 1511617827059967137}
+  - component: {fileID: 4559316305892386835}
   m_Layer: 0
   m_Name: post_01_Planks_SHD_0
   m_TagString: Untagged
@@ -85,19 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1199157792480476168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8313914614449080235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8e51162b88ca7646bb18e96c239834a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  plankAnimator: {fileID: 0}
 --- !u!65 &1511617827059967137
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -119,6 +106,50 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5.5964665, y: 2.0365374, z: 5.317734}
   m_Center: {x: -0.38546264, y: -0.0066659776, z: 1.5369923}
+--- !u!114 &4559316305892386835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8313914614449080235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba475776806529b4587b956a3e877ed7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTag: DamagingObject
+  onCollisionEntered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: PlankFall
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 9183789995651717807}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  WaitForMilliseconds: 0
+  onCollisionEnteredDelayed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &9183789995651717807
 GameObject:
   m_ObjectHideFlags: 0

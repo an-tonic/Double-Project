@@ -348,7 +348,6 @@ GameObject:
   - component: {fileID: 522202586161579755}
   - component: {fileID: 3490381131463631279}
   - component: {fileID: 9048598167153582786}
-  - component: {fileID: 7040497714724947065}
   - component: {fileID: 7626297670675340790}
   m_Layer: 0
   m_Name: Plank Target
@@ -444,13 +443,61 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!82 &7040497714724947065
-AudioSource:
+--- !u!114 &7626297670675340790
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6441401713256901073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1e265ad5c9abd742863cb5a0c514689, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetAudioSource: {fileID: 64497653827151878}
+--- !u!1 &6607809167865320820
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6338847857750557189}
+  - component: {fileID: 64497653827151878}
+  m_Layer: 0
+  m_Name: Hinge
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6338847857750557189
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6607809167865320820}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0.004122845, y: 0.6319576, z: 0.55959994}
+  m_LocalScale: {x: 0.010525368, y: 0.036731914, z: 0.21791619}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2986284742201504487}
+  - {fileID: 6579104535881181029}
+  - {fileID: 8278118503647648386}
+  m_Father: {fileID: 6198324171769140930}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: -90}
+--- !u!82 &64497653827151878
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6607809167865320820}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 5311145425211053939, guid: 82e0d81c32ea07041a9d824bef843b49, type: 2}
@@ -464,7 +511,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 0.5803375
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -540,52 +587,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &7626297670675340790
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6441401713256901073}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1e265ad5c9abd742863cb5a0c514689, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &6607809167865320820
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6338847857750557189}
-  m_Layer: 0
-  m_Name: Hinge
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6338847857750557189
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6607809167865320820}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 0.004122845, y: 0.6319576, z: 0.55959994}
-  m_LocalScale: {x: 0.010525368, y: 0.036731914, z: 0.21791619}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2986284742201504487}
-  - {fileID: 6579104535881181029}
-  - {fileID: 8278118503647648386}
-  m_Father: {fileID: 6198324171769140930}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: -90}
 --- !u!1 &8699145135968632127
 GameObject:
   m_ObjectHideFlags: 0

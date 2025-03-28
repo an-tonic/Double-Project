@@ -6,6 +6,7 @@ using TMPro;
 public class ConsentScreen : MonoBehaviour
 {
     public GameObject[] infoTexts;
+    public GameObject[] objectsToDisable;
     public Text buttonText;
 
     private int currentTextIndex = 0;
@@ -25,7 +26,10 @@ public class ConsentScreen : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            foreach(GameObject obj in objectsToDisable){
+                obj.SetActive(false);
+            }
+            SceneManager.LoadSceneAsync("IntroScene");
         }
     }
 

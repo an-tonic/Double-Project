@@ -122,11 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!4 &42634971 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8733093507751517968, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
-  m_PrefabInstance: {fileID: 3113582726696116334}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &348170532 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3356991306335605903, guid: e5db301629853dd4a99835fa70099d79, type: 3}
@@ -365,9 +360,13 @@ MonoBehaviour:
   - {fileID: 1670903853}
   - {fileID: 1958146349}
   - {fileID: 710142087}
+  objectsToDisable:
+  - {fileID: 1569417210}
+  - {fileID: 2105827453}
+  - {fileID: 1569417210}
+  - {fileID: 3113582726696116336}
+  - {fileID: 3113582726696116335}
   buttonText: {fileID: 348170532}
-  xrOrigin: {fileID: 42634971}
-  targetToLookAt: {fileID: 2105827454}
 --- !u!4 &664583120
 Transform:
   m_ObjectHideFlags: 0
@@ -678,9 +677,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Naturally, in the real world, you need to do the opposite: when talking
-    to a person using ASL orient your hand towards them, so that they, in turn, can
-    see your gestures better.'
+  m_text: 'Additionally, it is very important to perform the gesture as close to
+    the example as possible: take your time to remember the shape and relative position
+    of the fingers.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -982,7 +981,7 @@ GameObject:
   - component: {fileID: 1471810279}
   - component: {fileID: 1471810278}
   m_Layer: 5
-  m_Name: Text (TMP) About
+  m_Name: Text (TMP) Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1468,7 +1467,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -47, y: -265}
+  m_AnchoredPosition: {x: -47, y: -211}
   m_SizeDelta: {x: 343, y: 275}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1848742578
@@ -1737,8 +1736,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Note that due to technical limitations you should orient your hand with
-    you palm towards the headset:'
+  m_text: 'Note that due to technical limitations you should position your hand in
+    front of the headset:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1959,6 +1958,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 6653214391055899988, guid: e5db301629853dd4a99835fa70099d79, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1977,6 +1980,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 19177839317106858, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 82e0d81c32ea07041a9d824bef843b49, type: 2}
     - target: {fileID: 635909054196492854, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
       propertyPath: m_LineOriginTransform
       value: 
@@ -2110,12 +2117,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4485311939507468815, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485311939507468815, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
       propertyPath: m_LeftController
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4485311939507468815, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
       propertyPath: m_RightController
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4763085287379932446, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
+      propertyPath: m_ClickSpeed
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5410922237156258382, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
       propertyPath: m_AttachTransform
@@ -2217,6 +2232,10 @@ PrefabInstance:
       propertyPath: m_InteractorSource
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6773006275244323229, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 82e0d81c32ea07041a9d824bef843b49, type: 2}
     - target: {fileID: 7822482028367199063, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
       propertyPath: m_AttachTransform
       value: 
@@ -2265,7 +2284,11 @@ PrefabInstance:
       propertyPath: m_RayOriginTransform
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4078678170581458337, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
+    - {fileID: 4485311939507468815, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
+    - {fileID: 3116191128459764575, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
+    - {fileID: 4078678170581458340, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
     m_RemovedGameObjects:
     - {fileID: 2980644776483861429, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
     - {fileID: 5224629633635038180, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
@@ -2286,9 +2309,23 @@ PrefabInstance:
     - {fileID: 1937983308522590374, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
     - {fileID: 6073528328743216874, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
     - {fileID: 7572523348751049795, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
+    - {fileID: 1440762199518722964, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
+    - {fileID: 6476907908454672806, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
+    - {fileID: 6542593218782954902, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
+    - {fileID: 6372097140389261058, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
+--- !u!1 &3113582726696116335 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1616979458509162541, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
+  m_PrefabInstance: {fileID: 3113582726696116334}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3113582726696116336 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2176075390798225449, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
+  m_PrefabInstance: {fileID: 3113582726696116334}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

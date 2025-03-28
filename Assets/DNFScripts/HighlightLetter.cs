@@ -1,4 +1,7 @@
+using System;
 using System.Collections;
+using System.Diagnostics;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -7,6 +10,10 @@ public class HighlightLetter : MonoBehaviour
     public TextMeshPro textMesh;
     public Color32 highlightColor;
     public float transitionDuration = 1.0f;
+    public float transitionStep = 0.01f;
+
+    public bool rememberColour = true;
+
     private Color32[] colors;
     private Color32[] originalColors;
 
@@ -15,52 +22,59 @@ public class HighlightLetter : MonoBehaviour
         if (textMesh == null) return;
 
         textMesh.ForceMeshUpdate();
-        colors = textMesh.mesh.colors32; 
-        originalColors = new Color32[colors.Length]; 
-        colors.CopyTo(originalColors, 0);
+        colors = textMesh.mesh.colors32;
+        originalColors = textMesh.mesh.colors32;
     }
 
-    public void glowLetter(int letterIndex)
+    public void GlowLetter(string letter, string handedness)
     {
-        if (textMesh == null) return;
+        string currentText = textMesh.text.ToLower();     
+        GlowLetterAtIndex(currentText.IndexOf(letter.ToLower()));
+    }
 
-        TMP_TextInfo textInfo = textMesh.textInfo;
+    public void GlowLetterAtIndex(int letterIndex)
+    {
+        if (letterIndex < 0 || letterIndex >= textMesh.text.Length || !gameObject.activeInHierarchy) return;
+
         textMesh.ForceMeshUpdate();
 
-        if (letterIndex < 0 || letterIndex >= textInfo.characterCount) return;
+        // 4 is number of vertices per letter in text
+        int numOfSpacesBeforeLetter = textMesh.text.Substring(0, letterIndex).Count(Char.IsWhiteSpace);
+        int vertexIndex = (letterIndex - numOfSpacesBeforeLetter) * 4;
 
-        TMP_CharacterInfo charInfo = textInfo.characterInfo[letterIndex];
-
-        originalColors = textMesh.mesh.colors32.Clone() as Color32[];
-
-        StartCoroutine(ChangeLetterColor(letterIndex, transitionDuration, charInfo));
+        if (!rememberColour)
+        {
+            //Reset colors
+            colors = originalColors.Clone() as Color32[];
+        }
+        StopAllCoroutines();
+        
+        StartCoroutine(ChangeLetterColor(vertexIndex));
+        
     }
 
-    private IEnumerator ChangeLetterColor(int letterIndex, float duration, TMP_CharacterInfo charInfo)
+    private IEnumerator ChangeLetterColor(int index)
     {
-        float elapsedTime = 0f;
-
-        while (elapsedTime < duration)
+        for (float elapsed = 0f; elapsed < transitionDuration; elapsed += transitionStep)
         {
-            float lerpFactor = elapsedTime / duration;
+            float t = elapsed / transitionDuration;
 
-            for (int i = charInfo.vertexIndex; i < charInfo.vertexIndex + 4; i++)
+            for (int i = index; i < index + 4; i++)
             {
-                colors[i] = Color32.Lerp(originalColors[i], highlightColor, lerpFactor);
+                colors[i] = Color32.Lerp(textMesh.mesh.colors32[i], highlightColor, t);
             }
-
             textMesh.mesh.colors32 = colors;
-
-            elapsedTime += Time.deltaTime;
             yield return null;
         }
     }
 
-    public void setText(string text)
+    public void SetText(string text)
     {
-        if (text == null) return;
-        if (textMesh == null) return;
-
+        
         textMesh.text = text;
+        textMesh.ForceMeshUpdate();
+
+        colors = textMesh.mesh.colors32;
+        originalColors = textMesh.mesh.colors32;
     }
 }

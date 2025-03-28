@@ -1,0 +1,826 @@
+fileFormatVersion: 2
+guid: 3fd35590a4c045b449c20d207a321b3c
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: K
+      rect:
+        serializedVersion: 2
+        x: 978
+        y: 54
+        width: 68
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a61d0d07f9adfd04e8e53e2f1d53243f
+      internalID: 295471034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: L
+      rect:
+        serializedVersion: 2
+        x: 1046
+        y: 53
+        width: 80
+        height: 127
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 954574df5d8eb0a4186395ae8b576561
+      internalID: -1671029275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: P
+      rect:
+        serializedVersion: 2
+        x: 1399
+        y: 47
+        width: 95
+        height: 117
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d0732ce8ace5d0469b652dae8b90223
+      internalID: -471255473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: W
+      rect:
+        serializedVersion: 2
+        x: 2055
+        y: 43
+        width: 89
+        height: 143
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83fb506c80cb15e429318f4321981891
+      internalID: 936012296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Z
+      rect:
+        serializedVersion: 2
+        x: 2323
+        y: 55
+        width: 86
+        height: 117
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6a0dc748c832eb4285888c3ed012694
+      internalID: -685592912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: A
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 52
+        width: 68
+        height: 101
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f4dd37f221ca8449bc1c7fad733c84a
+      internalID: -1330503734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: I
+      rect:
+        serializedVersion: 2
+        x: 792
+        y: 49
+        width: 79
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37b6ab1201d764548b9a002d26fffcef
+      internalID: 618720421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: J
+      rect:
+        serializedVersion: 2
+        x: 873
+        y: 48
+        width: 106
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f81f11a8f70c1e24b8e5afbcb40eac2a
+      internalID: 1940035984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: R
+      rect:
+        serializedVersion: 2
+        x: 1593
+        y: 47
+        width: 91
+        height: 124
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d8330a68c26d3840b9d934dafc8724e
+      internalID: 472012754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: U
+      rect:
+        serializedVersion: 2
+        x: 1873
+        y: 47
+        width: 82
+        height: 123
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e19e1b778897011498c2fea5f5aeae5d
+      internalID: 258489068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: V
+      rect:
+        serializedVersion: 2
+        x: 1961
+        y: 49
+        width: 92
+        height: 137
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f126db9dcb047949842d8577f71aa6f
+      internalID: 1391019180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Y
+      rect:
+        serializedVersion: 2
+        x: 2237
+        y: 50
+        width: 88
+        height: 136
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6913bffcc1fe74042a6a79a23aaadb96
+      internalID: 353596795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: F
+      rect:
+        serializedVersion: 2
+        x: 477
+        y: 37
+        width: 91
+        height: 133
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f240cda3b29bb544d8a283397d36ab59
+      internalID: -820176074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: D
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 49
+        width: 79
+        height: 119
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65f386b301f5601419cb328232f87930
+      internalID: -699994728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: S
+      rect:
+        serializedVersion: 2
+        x: 1703
+        y: 49
+        width: 71
+        height: 104
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 334a640cd72e3fd48ac3afc70d1668f7
+      internalID: -13319278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T
+      rect:
+        serializedVersion: 2
+        x: 1787
+        y: 34
+        width: 78
+        height: 138
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da731711b0b279740aaad57e3fdd2f98
+      internalID: -1714854335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: G
+      rect:
+        serializedVersion: 2
+        x: 569
+        y: 47
+        width: 108
+        height: 118
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3341ba71f674fe4faf20d03dce5d06e
+      internalID: -2146821060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: H
+      rect:
+        serializedVersion: 2
+        x: 682
+        y: 53
+        width: 107
+        height: 112
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76feac4627e5a0e44b8bc4c49682c7fe
+      internalID: -555955996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: B
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 37
+        width: 81
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 359c94b7620baab4bb869fce640719cf
+      internalID: -1879465112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: C
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 51
+        width: 69
+        height: 106
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25789ce08e8e11e41994932581ef8b21
+      internalID: -831317673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: E
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 50
+        width: 88
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d896ad67e8c76bc49915c16cc7fb78ef
+      internalID: -1140349178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: N
+      rect:
+        serializedVersion: 2
+        x: 1222
+        y: 55
+        width: 87
+        height: 103
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3acebb0bcc1cea347a3ce4d5206f4f38
+      internalID: 2116174730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: O
+      rect:
+        serializedVersion: 2
+        x: 1315
+        y: 56
+        width: 84
+        height: 101
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76d6b8204eb0056468128df7d9d89ed0
+      internalID: -724532020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: M
+      rect:
+        serializedVersion: 2
+        x: 1135
+        y: 29
+        width: 95
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfd7a1e55b065964089b4bcb876d1fbc
+      internalID: -992513740
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Q
+      rect:
+        serializedVersion: 2
+        x: 1501
+        y: 46
+        width: 85
+        height: 97
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b22d951dd55c93d44bcfe06086c1aeaf
+      internalID: -1040603762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: X
+      rect:
+        serializedVersion: 2
+        x: 2139
+        y: 58
+        width: 86
+        height: 113
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 584baf99c4a719e4499e133a7d40140a
+      internalID: 2040640206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 4d6e084fbf3275542a44e4db2030cc2a
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      A: -1330503734
+      ASL Signs_1: -759713992
+      ASL Signs_100: -1203466600
+      ASL Signs_101: 530711241
+      ASL Signs_102: -69029870
+      ASL Signs_103: 1956840950
+      ASL Signs_104: -959920997
+      ASL Signs_105: 401688422
+      ASL Signs_106: -603793388
+      ASL Signs_107: -1993891642
+      ASL Signs_108: -492169522
+      ASL Signs_109: -2125545985
+      ASL Signs_11: -1319769681
+      ASL Signs_110: -1387306388
+      ASL Signs_111: -750995040
+      ASL Signs_112: 2026663956
+      ASL Signs_113: 681650950
+      ASL Signs_114: 1100570272
+      ASL Signs_115: 1341034439
+      ASL Signs_116: 84515788
+      ASL Signs_117: 1799834641
+      ASL Signs_118: 455191436
+      ASL Signs_119: 1207776949
+      ASL Signs_12: 1171313344
+      ASL Signs_120: -1459841102
+      ASL Signs_121: 346178936
+      ASL Signs_122: -1231001774
+      ASL Signs_123: -1557225864
+      ASL Signs_124: 1924061453
+      ASL Signs_125: 1496801738
+      ASL Signs_126: -682929475
+      ASL Signs_127: 195967687
+      ASL Signs_128: 535426057
+      ASL Signs_129: 963652197
+      ASL Signs_130: -1683007593
+      ASL Signs_131: -1558869472
+      ASL Signs_132: -1312011418
+      ASL Signs_133: -311162389
+      ASL Signs_134: -997449706
+      ASL Signs_135: 2006131583
+      ASL Signs_136: 633513835
+      ASL Signs_137: 1564093369
+      ASL Signs_138: -970705723
+      ASL Signs_139: -117832253
+      ASL Signs_14: 409859359
+      ASL Signs_140: 1846700497
+      ASL Signs_16: 448466947
+      ASL Signs_17: 1480568318
+      ASL Signs_18: -596416756
+      ASL Signs_19: 158918059
+      ASL Signs_21: 1029182245
+      ASL Signs_24: -1891453619
+      ASL Signs_25: -1268028177
+      ASL Signs_28: -1220926426
+      ASL Signs_29: 1696552820
+      ASL Signs_3: -1233921682
+      ASL Signs_31: 889256013
+      ASL Signs_34: 1548211224
+      ASL Signs_36: 120023524
+      ASL Signs_37: 177591706
+      ASL Signs_38: -885812341
+      ASL Signs_39: 1634879148
+      ASL Signs_4: 816280869
+      ASL Signs_41: -1986423018
+      ASL Signs_42: -445943989
+      ASL Signs_43: -1827544153
+      ASL Signs_44: 1962741854
+      ASL Signs_45: 1385503818
+      ASL Signs_46: 1088878205
+      ASL Signs_48: 1413952278
+      ASL Signs_49: -1294989191
+      ASL Signs_5: 118962146
+      ASL Signs_51: -17497110
+      ASL Signs_54: 1882875294
+      ASL Signs_56: -592200814
+      ASL Signs_6: 769026799
+      ASL Signs_60: 288367372
+      ASL Signs_61: -133173827
+      ASL Signs_62: 157315068
+      ASL Signs_65: -726449940
+      ASL Signs_66: -404382540
+      ASL Signs_67: -157342746
+      ASL Signs_68: -1706659921
+      ASL Signs_7: 226478934
+      ASL Signs_70: -1330456613
+      ASL Signs_72: 1581794789
+      ASL Signs_73: -1445849156
+      ASL Signs_74: -2135257244
+      ASL Signs_75: 1414264752
+      ASL Signs_76: 917074148
+      ASL Signs_77: 1857386240
+      ASL Signs_78: 490405608
+      ASL Signs_79: -560521587
+      ASL Signs_8: 1375590611
+      ASL Signs_80: -1342787139
+      ASL Signs_81: 1013811796
+      ASL Signs_82: 170721696
+      ASL Signs_83: -596278023
+      ASL Signs_84: -1027466502
+      ASL Signs_85: 1651116247
+      ASL Signs_86: -2141852621
+      ASL Signs_87: -872955246
+      ASL Signs_88: 1939066772
+      ASL Signs_89: -273579825
+      ASL Signs_9: 1724381167
+      ASL Signs_90: -1490290536
+      ASL Signs_91: 823258739
+      ASL Signs_92: -1601041159
+      ASL Signs_93: 149557269
+      ASL Signs_94: 526438820
+      ASL Signs_95: 1399397729
+      ASL Signs_96: -558879488
+      ASL Signs_97: -1069980910
+      ASL Signs_98: -1022126023
+      ASL Signs_99: -566900685
+      B: -1879465112
+      C: -831317673
+      D: -699994728
+      E: -1140349178
+      F: -820176074
+      G: -2146821060
+      H: -555955996
+      I: 618720421
+      J: 1940035984
+      K: 295471034
+      L: -1671029275
+      M: -992513740
+      N: 2116174730
+      O: -724532020
+      P: -471255473
+      Q: -1040603762
+      R: 472012754
+      S: -13319278
+      T: -1714854335
+      U: 258489068
+      V: 1391019180
+      W: 936012296
+      X: 2040640206
+      Y: 353596795
+      Z: -685592912
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

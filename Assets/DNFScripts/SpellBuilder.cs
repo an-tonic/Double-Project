@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -24,17 +25,17 @@ public class SpellBuilder : MonoBehaviour
     void Start()
     {
         empty = AddSpell<EmptySpell>();
-        Spell teleportation = AddSpell<Teleportation>();
+        Spell teleport = AddSpell<Teleportation>();
         Spell fire = AddSpell<Fire>();
         Spell light = AddSpell<Light>();
         Spell ball = AddSpell<Ball>();
 
 
 
-        empty.nextSpells = new List<Spell> { teleportation, fire, light };
+        empty.nextSpells = new List<Spell> { teleport, fire, light };
 
         fire.nextSpells = new List<Spell> { ball };
-        teleportation.nextSpells = new List<Spell> { };
+        teleport.nextSpells = new List<Spell> { };
         light.nextSpells = new List<Spell> { ball };
         ball.nextSpells = new List<Spell> { };
         currentSpell = empty;
@@ -67,8 +68,11 @@ public class SpellBuilder : MonoBehaviour
             return;
         }
 
+        if (GameManager.Instance.IsSignLearned(gesture[0]))
+        {
+            currentSpell = currentSpell.PrepareAndCast(gesture, handedness);
+        }
 
-        currentSpell = currentSpell.PrepareAndCast(gesture, handedness);
 
     }
 
@@ -90,65 +94,9 @@ public static class LetterExtensions
 
     public static bool IsCorrectLetter(this List<(string Sign, string Hand)> letters, int index, string letter) =>
         letters.Count > 0 && index < letters.Count && letters[index].Sign == letter;
-}
 
-public class Vessel
-{
-    public GameObject main;
-    public GameObject effect;
-    public GameObject shape;
-    public Material material;
-    public int damage;
-    public VesselBehaviour mainBehaviour;
-    public VesselBehaviour secondaryBehaviour;
-
-    public Vessel()
-    {
-        main = new GameObject("VesselMain");
-    }
-    public void AddBehavior<T>(Transform target = null, Vector3? offset = null) where T : VesselBehaviour
-    {
-        if (mainBehaviour != null)
-        {
-            UnityEngine.Object.Destroy(mainBehaviour);
-        }
-        mainBehaviour = main.AddComponent<T>();
-        Vector3 finalOffset = offset ?? Vector3.zero;
-        mainBehaviour.Initialize(target, finalOffset);
-    }
-    public void AddSecondaryBehavior<T>(bool enable = false) where T : VesselBehaviour
-    {
-        if (secondaryBehaviour != null)
-        {
-            UnityEngine.Object.Destroy(secondaryBehaviour);
-        }
-        secondaryBehaviour = main.AddComponent<T>();
-        secondaryBehaviour.enabled = enable;
-
-    }
-
-    public void DestroyAfter(MonoBehaviour caller, float seconds)
-    {
-        caller.StartCoroutine(DestroySequence(seconds));
-    }
-
-
-    private IEnumerator DestroySequence(float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        if (mainBehaviour != null)
-        {
-            mainBehaviour.enabled = false;
-        }
-        if (secondaryBehaviour != null)
-        {
-            secondaryBehaviour.enabled = false;
-        }
-        //Have to move the spell somewhare so that the collider is away and ontriggerext works. Othervise, if deleted, the event doesn't happen.
-        main.transform.position = new Vector3(0, -100, 0);
-        yield return new WaitForSeconds(0.1f);
-        UnityEngine.Object.Destroy(main);
-    }
+    public static string CollectLetters(this List<(string Sign, string Hand)> letters) =>
+        string.Concat(letters.ConvertAll(letter => letter.Sign.Substring(0, 1).ToUpper() + letter.Sign.Substring(1).ToLower()));
 
 }
 
@@ -156,16 +104,25 @@ public abstract class Spell : MonoBehaviour
 {
 
     public List<Spell> nextSpells;
-    public List<(string Sign, string Hand)> letters;
+    public List<(string Sign, string Hand)> letters = new List<(string Sign, string Hand)> { };
     public int manaCost = 10;
     public string activeHand;
+    public string modifierName;
 
-    protected Vessel vessel;
+    protected GameObject refToSpell;
+
     protected int currentLetterIndex = 0;
 
     protected Transform targetRight;
     protected Transform targetLeft;
     protected Transform xrOrigin;
+
+    public void Initialize(Transform targetR, Transform targetL, Transform targetXRorigin)
+    {
+        targetRight = targetR;
+        targetLeft = targetL;
+        xrOrigin = targetXRorigin;
+    }
 
     protected Spell FindNextSpell(string letter, string handedness)
     {
@@ -181,32 +138,24 @@ public abstract class Spell : MonoBehaviour
         return null;
     }
 
-
-    public void Initialize(Transform targetR, Transform targetL, Transform targetXRorigin)
-    {
-        targetRight = targetR;
-        targetLeft = targetL;
-        xrOrigin = targetXRorigin;
-    }
-
     public Spell PrepareAndCast(string letter, string handedness)
     {
 
         if (currentLetterIndex > 0 && !letters.IsCorrectLetter(currentLetterIndex, letter))
         {
             Spell nextSpell = FindNextSpell(letter, handedness);
-            if (nextSpell)
+            if (nextSpell && HasEnoughMana(nextSpell.manaCost))
             {
-                nextSpell.vessel = this.vessel;
-                nextSpell.Cast(letter, handedness);
+                this.StopCast();
+                nextSpell.modifierName = this.letters.CollectLetters();
+
                 currentLetterIndex = 0;
-                return nextSpell;
+                return nextSpell.Cast(letter, handedness);
             }
         }
 
         if (letters.Count > 0)
         {
-
             if (!letters.IsCorrectLetter(currentLetterIndex, letter))
             {
                 return this;
@@ -218,38 +167,50 @@ public abstract class Spell : MonoBehaviour
 
         }
 
-        GameManager.Instance.UseMana(manaCost);
+        if (!HasEnoughMana(this.manaCost))
+        {
+            Log.L("Not enough mana!");
+            // Add some visual feedback maybe
+            return this;
+        }
+
         return Cast(letter, handedness);
     }
 
-    public abstract Spell Cast(string letter, string handedness);
-
-    public void StopCast()
+    protected bool HasEnoughMana(int manaValue)
     {
-        if (vessel != null)
-        {
-            vessel.DestroyAfter(this, 0);
-            currentLetterIndex = 0;
-        }
+        if (manaValue == 0) return true;
+        return GameManager.Instance.UseMana(manaValue);
     }
 
-    public virtual Spell ActivateSpell()
+    abstract
+    public Spell Cast(string letter, string handedness);
+
+    virtual
+    public void StopCast()
     {
-        return this;
+        if(!refToSpell) return;
+        refToSpell.GetComponent<SpellBehaviourBase>().StopCast();
+        currentLetterIndex = 0;
+    }
+
+    virtual
+    public Spell ActivateSpell()
+    {
+        if (!refToSpell) return this;
+        refToSpell.GetComponent<SpellBehaviourBase>().ActivateSpell();
+        currentLetterIndex = 0;
+        return null;
     }
 }
 
 
 public class EmptySpell : Spell
 {
-
     void Start()
     {
         manaCost = 0;
-        activeHand = "";
-        letters = new List<(string Sign, string Hand)>();
     }
-
     override
     public Spell Cast(string letter, string handedness)
     {
@@ -268,8 +229,6 @@ public class EmptySpell : Spell
 
 public class Fire : Spell
 {
-    private ParticleSystem flames;
-    private ParticleSystem secondaryFlames;
 
     void Start()
     {
@@ -284,36 +243,30 @@ public class Fire : Spell
     }
 
     override
+    public Spell ActivateSpell()
+    {
+        return this;
+    }
+
+    override
     public Spell Cast(string letter, string handedness)
     {
 
         if (letters.IsFirst(letter))
         {
-            vessel = new Vessel();
             activeHand = handedness;
-            vessel.shape = Instantiate(Resources.Load<GameObject>("Effects/Fire"), vessel.main.transform.position, vessel.main.transform.rotation * Quaternion.Euler(180, 0, 0), vessel.main.transform);
+            refToSpell = Instantiate(Resources.Load<GameObject>("Effects/Fire"));
 
-            vessel.material = Resources.Load<Material>("Materials/Fire Material");
             Transform targetHand = handedness == "Right" ? targetRight : targetLeft;
-
-            vessel.AddBehavior<FollowTransform>(targetHand, Constants.handOffset);
-
-
-            flames = vessel.shape.transform.Find("Flames").GetComponent<ParticleSystem>();
-            secondaryFlames = vessel.shape.transform.Find("Flames Secondary").GetComponent<ParticleSystem>();
+            refToSpell.GetComponent<FireBehaviour>().Initialize(targetHand);
+          
         }
+        refToSpell.GetComponent<FireBehaviour>().AdvanceSpell(currentLetterIndex);
 
-        var emission = flames.emission;
-        emission.rateOverTime = new ParticleSystem.MinMaxCurve(20f * (currentLetterIndex + 1));
-        emission = secondaryFlames.emission;
-        emission.rateOverTime = new ParticleSystem.MinMaxCurve(20f * (currentLetterIndex + 1));
         currentLetterIndex++;
         return this;
 
     }
-
-
-
 }
 
 
@@ -321,7 +274,6 @@ public class Light : Spell
 {
     void Start()
     {
-
         letters = new List<(string Sign, string Hand)>
         {
             ("l", "Any"),
@@ -331,6 +283,11 @@ public class Light : Spell
             ("t", "Any"),
         };
     }
+    override
+    public Spell ActivateSpell()
+    {
+        return this;
+    }
 
     override
     public Spell Cast(string letter, string handedness)
@@ -338,37 +295,22 @@ public class Light : Spell
 
         if (letters.IsFirst(letter))
         {
-            vessel = new Vessel();
             activeHand = handedness;
-            Transform spellTF = vessel.main.transform;
-            vessel.shape = Instantiate(Resources.Load<GameObject>("Effects/Disk"), spellTF.position, spellTF.rotation * Quaternion.Euler(90, 0, 0), spellTF);
-            vessel.effect = Instantiate(Resources.Load<GameObject>("Effects/Light"), spellTF.position, spellTF.rotation, spellTF);
-            vessel.effect.SetActive(false);
+            refToSpell = Instantiate(Resources.Load<GameObject>("Effects/Light"));
 
-            vessel.material = Resources.Load<Material>("Materials/Light Glow");
             Transform targetHand = handedness == "Right" ? targetRight : targetLeft;
-
-            vessel.AddBehavior<FollowTransform>(targetHand, Constants.handOffset);
-
-            vessel.AddSecondaryBehavior<FollowCamera>();
-
+            refToSpell.GetComponent<LightBehaviour>().Initialize(targetHand);
         }
 
+        refToSpell.GetComponent<LightBehaviour>().AdvanceSpell(currentLetterIndex);
 
-        vessel.shape.GetComponent<UnityEngine.Light>().intensity = 1.0f + currentLetterIndex * 0.3f;
-        vessel.shape.GetComponent<UnityEngine.Light>().range = 4.0f + currentLetterIndex * 0.25f;
-        vessel.shape.transform.Find("Halo Large").GetComponent<UnityEngine.Light>().range = 0.2f + currentLetterIndex * 0.02f;
-
-        vessel.effect.GetComponent<UnityEngine.Light>().intensity = 1.0f + currentLetterIndex * 0.2f;
-        vessel.effect.GetComponent<UnityEngine.Light>().range = 3.0f + currentLetterIndex * 0.25f;
-        vessel.effect.transform.Find("Halo Large").GetComponent<UnityEngine.Light>().range = 0.2f + currentLetterIndex * 0.02f;
+        //vessel.effect.GetComponent<UnityEngine.Light>().intensity = 1.0f + currentLetterIndex * 0.2f;
+        //vessel.effect.GetComponent<UnityEngine.Light>().range = 3.0f + currentLetterIndex * 0.25f;
+        //vessel.effect.transform.Find("Halo Large").GetComponent<UnityEngine.Light>().range = 0.2f + currentLetterIndex * 0.02f;
 
         currentLetterIndex++;
         return this;
     }
-
-
-
 }
 
 
@@ -393,41 +335,19 @@ public class Ball : Spell
         if (letters.IsFirst(letter))
         {
             activeHand = handedness;
-            Destroy(vessel.shape.gameObject);
-            if (vessel.effect != null)
-            {
-                vessel.effect.SetActive(true);
-            }
-            vessel.shape = Instantiate(Resources.Load<GameObject>("Effects/Ball"), vessel.main.transform.position, vessel.main.transform.rotation, vessel.main.transform);
-            vessel.shape.GetComponent<MeshRenderer>().material = vessel.material;
-            if (vessel.secondaryBehaviour == null)
-            {
-                vessel.AddSecondaryBehavior<FlyForward>();
-            }
+            refToSpell = Instantiate(Resources.Load<GameObject>($"Effects/{modifierName}Ball"));
+
+            Transform targetHand = handedness == "Right" ? targetRight : targetLeft;
+            refToSpell.GetComponent<SpellBehaviourBase>()?.Initialize(targetHand);
         }
 
-        vessel.shape.transform.localScale *= (1 + currentLetterIndex * 0.3f);
+        refToSpell.GetComponent<SpellBehaviourBase>().AdvanceSpell(currentLetterIndex);
 
         currentLetterIndex++;
         return this;
     }
 
-    public override Spell ActivateSpell()
-    {
-
-        if (vessel.secondaryBehaviour != null)
-        {
-            vessel.secondaryBehaviour.enabled = true;
-        }
-        if (vessel.mainBehaviour != null)
-        {
-            vessel.mainBehaviour.enabled = false;
-        }
-        currentLetterIndex = 0;
-        vessel.DestroyAfter(this, (currentLetterIndex + 3) * 20);
-        //Destroy(vessel.main.gameObject, (currentLetterIndex + 1) * 20);
-        return null;
-    }
+    
 
 }
 
@@ -445,28 +365,36 @@ public class Teleportation : Spell
 
     }
 
+
+    override
+    public Spell ActivateSpell()
+    {
+        return this;
+    }
+
+
     override
     public Spell Cast(string letter, string handedness)
     {
 
         if (letters.IsFirst(letter))
         {
-            vessel = new Vessel();
             activeHand = handedness;
-            vessel.effect = Instantiate(Resources.Load<GameObject>("Effects/TP_Line"), vessel.main.transform);
-            vessel.effect.GetComponent<TPLineSmoothing>().handTransform = targetLeft;
-
-            currentLetterIndex += 1;
+            refToSpell = Instantiate(Resources.Load<GameObject>("Effects/TP_Line"));
+            refToSpell.GetComponent<SpellBehaviourBase>()?.Initialize(targetLeft);
+            
+            currentLetterIndex++;
         }
         else if (letter == letters[1].Sign && CheckRaycast(out Vector3 hitPoint))
         {
-            Vector3 difference = Camera.main.transform.position - xrOrigin.position;
+            float distanceTeleported = Vector3.Distance(xrOrigin.position, hitPoint);
+            GameManager.Instance.TravelDistance(distanceTeleported);
 
             xrOrigin.position = hitPoint;
 
+            //Setting the xrOrigin and camera in the same spot relatively by changing offset (child of XRorigin, parent of camera)
+            Vector3 difference = Camera.main.transform.position - xrOrigin.position;
             xrOrigin.transform.Find("Camera Offset").localPosition += new Vector3(difference.x, 0f, difference.z);
-            //StopCast();
-
         }
         return this;
     }
@@ -475,10 +403,9 @@ public class Teleportation : Spell
     private bool CheckRaycast(out Vector3 hitPoint)
     {
         hitPoint = Vector3.zero;
-        if (!vessel.effect) return false;
-        Ray ray = new Ray(vessel.effect.transform.position, vessel.effect.transform.up);
+        Ray ray = new Ray(refToSpell.transform.position, refToSpell.transform.forward);
         LayerMask teleportLayer = 1 << LayerMask.NameToLayer("TeleportationLayer");
-        if (Physics.Raycast(ray, out RaycastHit hitInfo, vessel.effect.transform.localScale.y, teleportLayer) &&
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, refToSpell.transform.localScale.z, teleportLayer) &&
             hitInfo.collider.CompareTag("TeleportSurface"))
         {
             hitPoint = hitInfo.point;
@@ -487,72 +414,4 @@ public class Teleportation : Spell
         return false;
     }
 
-}
-
-
-public abstract class VesselBehaviour : MonoBehaviour
-{
-    public virtual void Initialize(Transform target, Vector3 offset) { }
-}
-
-public class FollowTransform : VesselBehaviour
-{
-    private Transform targetTransform;
-    public float smoothingFactor = 0.1f;
-    private Vector3 trackingPoint;
-
-    public override void Initialize(Transform target, Vector3 offset)
-    {
-        targetTransform = target;
-        trackingPoint = offset;
-    }
-
-    void Start()
-    {
-        if (targetTransform == null) return;
-        transform.position = targetTransform.TransformPoint(trackingPoint);
-        transform.rotation = targetTransform.rotation;
-    }
-
-    void Update()
-    {
-        if (targetTransform == null) return;
-
-        //Vector3 targetPosition = targetTransform.position + targetTransform.right * trackingPoint.x + targetTransform.up * trackingPoint.y + targetTransform.forward * -trackingPoint.z;
-        Vector3 targetPosition = targetTransform.TransformPoint(trackingPoint);
-        transform.position = Vector3.Lerp(transform.position, targetPosition, smoothingFactor);
-        transform.rotation = targetTransform.rotation;
-
-    }
-}
-
-public class FollowCamera : VesselBehaviour
-{
-    private Transform target;
-    public float smoothing = 0.1f;
-    private Vector3 offset;
-
-    void Start()
-    {
-        target = Camera.main.transform;
-        offset = target.InverseTransformPoint(transform.position);
-    }
-
-    void Update()
-    {
-        if (!target) return;
-        transform.position = Vector3.Lerp(transform.position, target.TransformPoint(offset), smoothing);
-        transform.rotation = target.rotation;
-    }
-}
-
-
-public class FlyForward : VesselBehaviour
-{
-    public float speed = 3f;
-
-    void Update()
-    {
-        transform.position += transform.forward * speed * Time.deltaTime;
-    }
 }

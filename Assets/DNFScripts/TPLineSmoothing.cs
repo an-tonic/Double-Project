@@ -5,27 +5,23 @@ using UnityEngine;
 
 public class TPLineSmoothing : MonoBehaviour
 {
-    public Transform handTransform = null; 
-    public float smoothingFactor = 0.1f; 
-    public float offsetAmount = 0.1f;
+    private Transform targetTransform; 
+    public float smoothingFactor = 0.1f;
+    private Vector3 trackingPoint;
 
-    private Vector3 smoothedEndPoint;
 
-    void OnEnable()
+    public void Initialize(Transform target, Vector3 offset)
     {
-        if (handTransform == null) return;
-        transform.position = handTransform.position + handTransform.up * -offsetAmount + handTransform.forward * offsetAmount;
-        transform.rotation = handTransform.rotation * Quaternion.Euler(90, 0, 0);
+        targetTransform = target;
+        trackingPoint = offset;
+        transform.rotation = targetTransform.rotation;
     }
 
     void Update()
     {
-        if (handTransform == null) return;
-
-        transform.position = handTransform.position + handTransform.up * -offsetAmount + handTransform.forward * offsetAmount;
-
-        Quaternion targetRotation = handTransform.rotation * Quaternion.Euler(90, 0, 0);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, smoothingFactor);
+   
+        transform.position = targetTransform.TransformPoint(trackingPoint);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetTransform.rotation, smoothingFactor);
 
     }
 
