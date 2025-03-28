@@ -14,7 +14,7 @@ public class debugger : MonoBehaviour
         if (spellBuilder != null)
         {
             
-            spellBuilder.OnGestureRecognized(inputText, isRight ? "Right" : "Left");  // Call the function you want to trigger
+            spellBuilder.OnGestureRecognized(inputText, isRight ? "Right" : "Left");
 
     
         }

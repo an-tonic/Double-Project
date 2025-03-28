@@ -51,7 +51,7 @@ public class FollowPoint : MonoBehaviour
         Vector3 targetPos = target.position + yRotation * targetOffset;
 
         Vector3 newPos = transform.position;
-        // Update position on selected axes
+        
         if (updateX) newPos.x = targetPos.x;
         if (updateY) newPos.y = targetPos.y;
         if (updateZ) newPos.z = targetPos.z;

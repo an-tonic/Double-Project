@@ -25,7 +25,6 @@ public class FollowTransform : MonoBehaviour
     {
         if (targetTransform == null) return;
 
-        //Vector3 targetPosition = targetTransform.position + targetTransform.right * trackingPoint.x + targetTransform.up * trackingPoint.y + targetTransform.forward * -trackingPoint.z;
         Vector3 targetPosition = targetTransform.TransformPoint(trackingPoint);
         transform.position = Vector3.Lerp(transform.position, targetPosition, smoothingFactor);
 
