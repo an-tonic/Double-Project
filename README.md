@@ -1,8 +1,9 @@
 # Project title
 
-Your Name
+Serdyukov Antoniy
 
-<a href="">email@example.com</a>
+<a href="">aserdyukov@uclan.ac.uk</a>
+<a name="readme-top"></a>
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -32,61 +33,56 @@ Your Name
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Write one paragraph to describe your project.
-What kind of software is it? (mobile app, web app, software tool, etc.)
-What features does it provide? Who are the intended users?
+This project uses Virtual Reality (VR) technology to teach users the American Sign
+Language (ASL). It is a standalone VR application that uses the VR headset's
+capabilities to track the users hands to create an immersive environment for
+learning ASL alphabet signs while playing the game. This is intended as introductory
+tool for those who want beggin learning ASL. Additionaly, its goal is to raise
+awareness about sign languages to promote diversity and inclusion.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Development tools
 
-This section should list any major frameworks/libraries used to create your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
-* Java 11 SDK
-* Apache Tomcat
-* MySQL 3.11
-* Redis
-* GSON
+This project has used the following tools:
+* Unity Hun 3.8.0
+* Unity Editor 2022.3.45f1 Long Term Support
+* Microsof Visual Studio Community 2022
+* Android Build Support: OpenJDK and Android SDK & NDK Tools
+###### Unity Packages:
+* OpenXR Plugin 1.12.1
+* XR Hands 1.4.3
+* XR Interaction Toolkit 2.6.3
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
 ## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps. 
-Include instructions on how to install software needed to run your project and commands to be executed.
-
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+* Windows OS
+* Free disk space ~50 GB
+* Internet connection
+* Git 
+* Oculus Quest 2 (or similar, but not gurrantied to work)
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+1. Install Unity Hub from [unity.com/unity-hub](https://unity.com/unity-hub) (Any version)
+2. In Unity Hub install the *exact* Unity Editor - through the Hub or if unavalible the Archive (Shows in the dialog box)
+3. Install target platform packages - Android Build Support
+4. Clone this repo in a folder of your choosing
+   ```sh
+   git clone https://github.com/an-tonic/Double-Project.git
+   ```
+5. In the Unity Hub Projects -> Add -> Chose the repo
+6. Click on the new entry in the Unity Hub and wait for the libraries to build
+7. In the Editor install Packages listed above (Window -> Package Manager -> Unity Registry -> Find and Install)
+8. Switch the Quest 2 to developer mode and trust the computer when connecting the cable: [www.wikihow.com](https://www.wikihow.com/Enable-Developer-Mode-Oculus-Quest-2)
+9. Configure Build (File -> Build Settings -> Android Platform -> Run Device -> Choose headset)
+10. Build and Run (cable can be disconnected after)
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/github_username/repo_name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
-5. Change git remote url to avoid accidental pushes to base project
-   ```sh
-   git remote set-url origin github_username/repo_name
-   git remote -v # confirm the changes
-   ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -104,9 +100,9 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- CONTACT -->
 ## Contact
 
-Your Name - email@example.com - [GitHub Account](https://github.com/your_username)
+Serdyukov Antoniy - aserdyukov@uclan.ac.uk - [GitHub Account](https://github.com/an-tonic)
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Project Link: [https://github.com/an-tonic/Double-Project](https://github.com/an-tonic/Double-Project)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -115,6 +111,9 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-Use this space to list resources you found helpful or people that have helped you and that you would like to give credit to.
+Special thanks to [Dr. Nicos Kasenides](https://github.com/nkasenides) for continuous supervision of this 
+project, and my girlfriend, Alena, for her immense support and frequent testing, as 
+well as other testers.
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
