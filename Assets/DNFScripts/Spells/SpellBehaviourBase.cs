@@ -7,6 +7,8 @@ public abstract class SpellBehaviourBase : MonoBehaviour
 
     public virtual void Initialize(Transform target) { }
 
+    public virtual void Initialize(Transform target, int previousData = 0) { }
+
     public virtual void AdvanceSpell(int value) { }
 
     public virtual void ActivateSpell() { }

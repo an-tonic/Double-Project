@@ -6,13 +6,14 @@ using UnityEngine;
 public class FireBallBehaviour : SpellBehaviourBase
 {
     private readonly Vector3 handOffset = new Vector3(0.00f, -0.12f, 0.10f);
-    private bool isActive = false;
-    private float speed = 1f;
-    private float acceleration = 1f;
     private Rigidbody rb;
+    
+    public bool isActive = false;
+    public float speed = 2f;
+    public float acceleration = 10f;
 
     override
-    public void Initialize(Transform target)
+    public void Initialize(Transform target, int previousSpellIndex)
     {
         rb = GetComponent<Rigidbody>();
 
@@ -39,6 +40,7 @@ public class FireBallBehaviour : SpellBehaviourBase
         isActive = true;
         rb.AddForce(transform.forward * speed, ForceMode.Impulse);
         GetComponent<FollowTransform>().enabled = false;
+        Destroy(this.gameObject, 10f);
     }
 
 
@@ -50,6 +52,7 @@ public class FireBallBehaviour : SpellBehaviourBase
             rb.velocity = Vector3.zero;
             GetComponent<Renderer>().enabled = false;
             Destroy(this.gameObject, 3f);
+            isActive = false;
         }
     }
 

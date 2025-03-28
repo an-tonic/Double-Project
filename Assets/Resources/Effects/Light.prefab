@@ -310,8 +310,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4534175958047886741}
-  - component: {fileID: 4400797722073047217}
   - component: {fileID: 388629525021384870}
+  - component: {fileID: 4400797722073047217}
   - component: {fileID: 8278373786478939002}
   m_Layer: 0
   m_Name: Light
@@ -338,6 +338,18 @@ Transform:
   - {fileID: 7746052963559998331}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &388629525021384870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6632597852894811462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9566f58da1e5db4fa8f5182d1fb56ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &4400797722073047217
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -359,18 +371,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &388629525021384870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6632597852894811462}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9566f58da1e5db4fa8f5182d1fb56ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8278373786478939002
 MonoBehaviour:
   m_ObjectHideFlags: 0

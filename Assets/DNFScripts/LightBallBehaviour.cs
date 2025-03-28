@@ -11,9 +11,11 @@ public class LightBallBehaviour : SpellBehaviourBase
 
 
     override
-    public void Initialize(Transform target)
+    public void Initialize(Transform target, int lightIntensity)
     {
         GetComponent<FollowTransform>().Initialize(target, handOffset);
+        transform.Find("Light").GetComponent<UnityEngine.Light>().intensity = 1.0f + lightIntensity * 0.3f;
+        transform.Find("Light").GetComponent<UnityEngine.Light>().range = 4.0f + lightIntensity * 0.25f;
     }
 
 

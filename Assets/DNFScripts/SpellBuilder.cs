@@ -5,10 +5,6 @@ using System.Collections.Specialized;
 using UnityEngine;
 using UnityEngine.Events;
 
-public static class Constants
-{
-    public static readonly Vector3 handOffset = new Vector3(0.00f, -0.12f, 0.10f);
-}
 
 public class SpellBuilder : MonoBehaviour
 {
@@ -110,9 +106,8 @@ public abstract class Spell : MonoBehaviour
     public string modifierName;
 
     protected GameObject refToSpell;
-
     protected int currentLetterIndex = 0;
-
+    protected int previousSpellLetterIndex = 0;
     protected Transform targetRight;
     protected Transform targetLeft;
     protected Transform xrOrigin;
@@ -124,35 +119,28 @@ public abstract class Spell : MonoBehaviour
         xrOrigin = targetXRorigin;
     }
 
-    protected Spell FindNextSpell(string letter, string handedness)
-    {
-        foreach (Spell spell in nextSpells)
-        {
-            if (spell == null) continue;
-
-            if (spell.letters.IsFirst(letter) && (spell.letters[0].Hand == handedness || spell.letters[0].Hand == "Any"))
-            {
-                return spell;
-            }
-        }
-        return null;
-    }
 
     public Spell PrepareAndCast(string letter, string handedness)
     {
 
-        if (currentLetterIndex > 0 && !letters.IsCorrectLetter(currentLetterIndex, letter))
+        //if (currentLetterIndex > 0 && !letters.IsCorrectLetter(currentLetterIndex, letter))
+        //{
+        if (activeHand == handedness || activeHand == "Any")
         {
+
             Spell nextSpell = FindNextSpell(letter, handedness);
             if (nextSpell && HasEnoughMana(nextSpell.manaCost))
             {
                 this.StopCast();
                 nextSpell.modifierName = this.letters.CollectLetters();
-
+                nextSpell.previousSpellLetterIndex = currentLetterIndex;
+                nextSpell.activeHand = this.activeHand;
                 currentLetterIndex = 0;
                 return nextSpell.Cast(letter, handedness);
             }
+
         }
+        //}
 
         if (letters.Count > 0)
         {
@@ -177,6 +165,20 @@ public abstract class Spell : MonoBehaviour
         return Cast(letter, handedness);
     }
 
+    protected Spell FindNextSpell(string letter, string handedness)
+    {
+        foreach (Spell spell in nextSpells)
+        {
+            if (spell == null) continue;
+
+            if (spell.letters.IsFirst(letter) && (spell.letters[0].Hand == handedness || spell.letters[0].Hand == "Any"))
+            {
+                return spell;
+            }
+        }
+        return null;
+    }
+
     protected bool HasEnoughMana(int manaValue)
     {
         if (manaValue == 0) return true;
@@ -189,7 +191,7 @@ public abstract class Spell : MonoBehaviour
     virtual
     public void StopCast()
     {
-        if(!refToSpell) return;
+        if (!refToSpell) return;
         refToSpell.GetComponent<SpellBehaviourBase>().StopCast();
         currentLetterIndex = 0;
     }
@@ -209,6 +211,7 @@ public class EmptySpell : Spell
 {
     void Start()
     {
+        activeHand = "Any";
         manaCost = 0;
     }
     override
@@ -259,7 +262,7 @@ public class Fire : Spell
 
             Transform targetHand = handedness == "Right" ? targetRight : targetLeft;
             refToSpell.GetComponent<FireBehaviour>().Initialize(targetHand);
-          
+
         }
         refToSpell.GetComponent<FireBehaviour>().AdvanceSpell(currentLetterIndex);
 
@@ -304,10 +307,6 @@ public class Light : Spell
 
         refToSpell.GetComponent<LightBehaviour>().AdvanceSpell(currentLetterIndex);
 
-        //vessel.effect.GetComponent<UnityEngine.Light>().intensity = 1.0f + currentLetterIndex * 0.2f;
-        //vessel.effect.GetComponent<UnityEngine.Light>().range = 3.0f + currentLetterIndex * 0.25f;
-        //vessel.effect.transform.Find("Halo Large").GetComponent<UnityEngine.Light>().range = 0.2f + currentLetterIndex * 0.02f;
-
         currentLetterIndex++;
         return this;
     }
@@ -334,11 +333,11 @@ public class Ball : Spell
 
         if (letters.IsFirst(letter))
         {
-            activeHand = handedness;
+
             refToSpell = Instantiate(Resources.Load<GameObject>($"Effects/{modifierName}Ball"));
 
             Transform targetHand = handedness == "Right" ? targetRight : targetLeft;
-            refToSpell.GetComponent<SpellBehaviourBase>()?.Initialize(targetHand);
+            refToSpell.GetComponent<SpellBehaviourBase>()?.Initialize(targetHand, previousSpellLetterIndex);
         }
 
         refToSpell.GetComponent<SpellBehaviourBase>().AdvanceSpell(currentLetterIndex);
@@ -347,7 +346,7 @@ public class Ball : Spell
         return this;
     }
 
-    
+
 
 }
 
@@ -382,7 +381,7 @@ public class Teleportation : Spell
             activeHand = handedness;
             refToSpell = Instantiate(Resources.Load<GameObject>("Effects/TP_Line"));
             refToSpell.GetComponent<SpellBehaviourBase>()?.Initialize(targetLeft);
-            
+
             currentLetterIndex++;
         }
         else if (letter == letters[1].Sign && CheckRaycast(out Vector3 hitPoint))

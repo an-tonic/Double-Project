@@ -10,7 +10,7 @@ public class EnemyController : MonoBehaviour
 {
 
     public NavMeshAgent agent;
-   
+
     public LayerMask groundMask, playerMask;
     public GameObject projectileModel;
     public int attackDelay;
@@ -30,7 +30,11 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isDead) { return; }
+        if (isDead)
+        {
+            transform.localScale *= 0.999f;
+            return;
+        }
 
         playerInSight = Physics.CheckSphere(transform.position, sightRange, playerMask);
         playerInAttack = Physics.CheckSphere(transform.position, attackRange, playerMask);
@@ -40,6 +44,8 @@ public class EnemyController : MonoBehaviour
         if (playerInAttack && playerInSight) AttackPlayer();
     }
 
+
+
     public void TakeDamage(int damage)
     {
         health -= damage;
@@ -47,15 +53,15 @@ public class EnemyController : MonoBehaviour
         if (health <= 0)
         {
             isDead = true;
-            agent.enabled= false;
-
+            agent.enabled = false;
+            transform.Find("Halo")?.gameObject.SetActive(false);
             Destroy(this.gameObject, 10f);
         }
     }
 
     private void AttackPlayer()
     {
-        
+
         agent.SetDestination(transform.position);
 
         transform.LookAt(player.position + Vector3.up);
@@ -66,7 +72,7 @@ public class EnemyController : MonoBehaviour
             GameObject projectile = Instantiate(projectileModel, transform.position, Quaternion.identity);
             Rigidbody rb = projectile.GetComponent<Rigidbody>();
             rb.AddForce(transform.forward * 3f, ForceMode.Impulse);
-     
+
 
             isAttackPerformed = true;
             Invoke(nameof(ResetAttack), attackDelay);
@@ -103,18 +109,18 @@ public class EnemyController : MonoBehaviour
 
         Vector3 distanceToPoint = walkPoint - transform.position;
 
-        if(distanceToPoint.magnitude < 1.0f)
+        if (distanceToPoint.magnitude < 1.0f)
         {
-            isSetPoint = false; 
+            isSetPoint = false;
         }
 
     }
-    
+
     private void MoveToPlayer()
     {
         agent.SetDestination(player.position);
     }
 
 
-    
+
 }

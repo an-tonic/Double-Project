@@ -7,30 +7,22 @@ public class LearningStateManager : MonoBehaviour
 {
     private List<(string Sign, string Hand)> learningStates = new List<(string, string)>
     {
+        ("s", "Right"),
         ("l", "Right"),
         ("s", "Left"),
         ("l", "Left"),
         ("s", "Right"),
         ("l", "Right"),
         ("b", "Right"),
-        ("a", "Left"),
-        ("Change Text", "None"),
-        ("d", "Left"),
-        ("s", "Right"),
-        ("d", "Left"),
-        ("f", "Right"),
-        ("d", "Left"),
-        ("f", "Right")
+        ("a", "Left")
     };
-    private string firstText = "The Light will never Stop.";
-    private string secondText = "The Destination is Forward.";
-    private string currentText ;
+
     private bool mirrowed = true;
     private string restPoseName = "RESTPOSE";
     private int currentStateIndex = 0;
 
     public HandDataLoader handDataLoader;
-    public HighlightLetter highlightLetter;
+
     public Transform leftHand;
     public Transform rightHand;
     public Transform leftArm;
@@ -43,8 +35,6 @@ public class LearningStateManager : MonoBehaviour
 
     void Start()
     {
-        currentText = firstText;
-        highlightLetter.SetText(currentText);
 
         BendArm(learningStates[0].Hand);
         StartCoroutine(InitializeHandData());
@@ -60,9 +50,6 @@ public class LearningStateManager : MonoBehaviour
     {
 
         CurrentState = learningStates[currentStateIndex];
-
-        //ApplyRestPosition(rightHand);
-        //ApplyRestPosition(leftHand);
 
         if (CurrentState.Hand == "Right" || CurrentState.Hand == "Any")
         {
@@ -97,20 +84,9 @@ public class LearningStateManager : MonoBehaviour
        
         if (performedSign == expectedState.Sign && (performedHand == expectedState.Hand || expectedState.Hand == "Any"))
         {
-            if (nextState.Sign == "Change Text")
-            {
-                highlightLetter.SetText(secondText);
-                currentText = secondText;
-                //Jump over this state
-                currentStateIndex ++;
 
-            }
             //Add new learnt sign to player knowledge
             GameManager.Instance.AddNewSign(performedSign[0]);
-
-            int letterIndex = currentText.ToLower().IndexOf(performedSign);
-            highlightLetter.GlowLetterAtIndex(letterIndex);
-
             BendArm(nextState.Hand);
 
             currentStateIndex++;

@@ -19,9 +19,9 @@ TagManager:
   - Player
   - Obstacle
   - VFX
-  - Uncollidable
-  - 
-  - 
+  - PlayerUncollidable
+  - Enemy
+  - EnemyUncollidable
   - 
   - 
   - 

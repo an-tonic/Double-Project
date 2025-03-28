@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 3526041014037990234}
   - component: {fileID: 7373169124472543763}
   - component: {fileID: 5560638068510405560}
-  - component: {fileID: -3567092150449497133}
-  - component: {fileID: 2726767750896840419}
   - component: {fileID: -4998411776964580916}
+  - component: {fileID: 2726767750896840419}
+  - component: {fileID: -3567092150449497133}
   - component: {fileID: 3143097864382936746}
   m_Layer: 10
   m_Name: FireBall
@@ -88,6 +88,34 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-4998411776964580916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4715223124923702573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2b56b1739cc5544a846675e5b825cf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isActive: 0
+  speed: 0
+  acceleration: 10
+--- !u!114 &2726767750896840419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4715223124923702573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da80469a3c7b17a45a42632da82cbdd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smoothingFactor: 0.1
 --- !u!54 &-3567092150449497133
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -115,31 +143,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2726767750896840419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4715223124923702573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da80469a3c7b17a45a42632da82cbdd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  smoothingFactor: 0.1
---- !u!114 &-4998411776964580916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4715223124923702573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2b56b1739cc5544a846675e5b825cf3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!135 &3143097864382936746
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -221,6 +224,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7354695869903840036, guid: 8d03efb8852445040b36a90d33f0f5c6, type: 3}
+      propertyPath: InitialModule.startRotation.scalar
+      value: -0.068765976
+      objectReference: {fileID: 0}
+    - target: {fileID: 7354695869903840036, guid: 8d03efb8852445040b36a90d33f0f5c6, type: 3}
+      propertyPath: InitialModule.gravityModifier.scalar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7354695869903840037, guid: 8d03efb8852445040b36a90d33f0f5c6, type: 3}
+      propertyPath: m_UseCustomVertexStreams
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7354695869903840038, guid: 8d03efb8852445040b36a90d33f0f5c6, type: 3}
       propertyPath: m_Name
       value: Explosion
@@ -258,8 +273,8 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: 82e0d81c32ea07041a9d824bef843b49, type: 2}
   m_audioClip: {fileID: 8300000, guid: a1366eb2bed901f44a0a6ec8be81dac6, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
-  m_Pitch: 0.2
+  m_Volume: 0.1
+  m_Pitch: 0.7
   Loop: 0
   Mute: 0
   Spatialize: 0
